@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "719504117238-b5i9onfneebfk56nbs9gqgt49ai4lkol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.getwebcare.automation",
+            "certificate_hash": "99ee4670150b89e58fdd4967cdbcb93260195740"
+          }
+        },
+        {
           "client_id": "719504117238-a7fmcugo55g84ip7sdsob0st23s18i5o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
