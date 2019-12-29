@@ -1,4 +1,4 @@
-package in.getwebcare.automation;
+package com.getwebcare.automation;
 
 import org.junit.Test;
 
