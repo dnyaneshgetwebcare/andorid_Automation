@@ -118,8 +118,8 @@ public class SignIn extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            Toast.makeText(SignIn.this, "User Signed In", Toast.LENGTH_SHORT).show();
+                            user.getUid();
+                            Toast.makeText(SignIn.this, "User Signed In "+user.getUid(), Toast.LENGTH_SHORT).show();
                         Intent  intent=new Intent(SignIn.this,UserDataActivity.class);
                         startActivity(intent);
                         } else {
