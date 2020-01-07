@@ -78,7 +78,7 @@ public class SignIn extends AppCompatActivity {
         //and take the user to profile activity
         if (mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, UserDataActivity.class));
+            startActivity(new Intent(this, LauncherActivity.class));
         }
     }
 
@@ -120,7 +120,7 @@ public class SignIn extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             user.getUid();
                             Toast.makeText(SignIn.this, "User Signed In "+user.getUid(), Toast.LENGTH_SHORT).show();
-                        Intent  intent=new Intent(SignIn.this,UserDataActivity.class);
+                        Intent  intent=new Intent(SignIn.this,LauncherActivity.class);
                         startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
