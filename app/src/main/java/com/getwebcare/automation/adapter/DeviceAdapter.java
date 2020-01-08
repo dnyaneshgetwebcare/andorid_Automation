@@ -56,7 +56,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final DevicesModel myListData = deviceList.get(position);
-        holder.relativeLayout.setVisibility(View.GONE);
+        holder.rl_container.setVisibility(View.GONE);
         holder.progressBar.setVisibility(View.VISIBLE);
         holder.device_name.setText(deviceList.get(position).getName());
         holder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
@@ -67,7 +67,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             getRealtimeListner(deviceList.get(position).getId(),position);
         }else{
             holder.progressBar.setVisibility(View.GONE);
-            holder.relativeLayout.setVisibility(View.VISIBLE);
+            holder.rl_container.setVisibility(View.VISIBLE);
         }
 
        holder.device_status.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +129,7 @@ return R.drawable.ic_unknown;
         public RelativeLayout relativeLayout;
         public ImageButton device_status;
         public ProgressBar progressBar;
+        public RelativeLayout rl_container;
         public ViewHolder(View itemView) {
             super(itemView);
             this.device_name = (TextView) itemView.findViewById(R.id.deveice_name);
@@ -136,6 +137,7 @@ return R.drawable.ic_unknown;
             this.device_img = (ImageView) itemView.findViewById(R.id.img_vw);
            this.progressBar=(ProgressBar) itemView.findViewById(R.id.prgress_bar_power);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relativeLayout);
+            this.rl_container=(RelativeLayout)itemView.findViewById(R.id.rv_contain_holder);
         }
     }
 
