@@ -4,6 +4,7 @@ public class DevicesModel {
     String id;
     String status;
     String name;
+    String type;
     String brightness;
 
     public DevicesModel() {
@@ -21,6 +22,14 @@ public class DevicesModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStatus() {

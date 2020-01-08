@@ -1,17 +1,22 @@
 package com.getwebcare.automation.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getwebcare.automation.R;
@@ -31,6 +36,7 @@ import static android.content.ContentValues.TAG;
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
     List<DevicesModel> deviceList;
     FirebaseDatabase database;
+    Context context;
 
     @NonNull
     @Override
@@ -41,24 +47,30 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         return viewHolder;
     }
 
-    public DeviceAdapter(List<DevicesModel> deviceList) {
+    public DeviceAdapter(List<DevicesModel> deviceList,Context context) {
         this.deviceList = deviceList;
         database = FirebaseDatabase.getInstance();
+        this.context=context;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final DevicesModel myListData = deviceList.get(position);
-        holder.textView.setText(deviceList.get(position).getName());
-        //holder.imageView.setImageResource(deviceList.get(position).getImgId());
-        holder.device_status.setText(deviceList.get(position).getStatus());
-        holder.change_status.setText(deviceList.get(position).getStatus());
-        holder.ed_brightness.setText(deviceList.get(position).getBrightness());
+        holder.relativeLayout.setVisibility(View.GONE);
+        holder.progressBar.setVisibility(View.VISIBLE);
+        holder.device_name.setText(deviceList.get(position).getName());
+        holder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
+        holder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
+      //  holder.change_status.setText(deviceList.get(position).getStatus());
+
         if(deviceList.get(position).getStatus()==null || deviceList.get(position).getStatus().equalsIgnoreCase("")){
             getRealtimeListner(deviceList.get(position).getId(),position);
+        }else{
+            holder.progressBar.setVisibility(View.GONE);
+            holder.relativeLayout.setVisibility(View.VISIBLE);
         }
 
-       holder.change_status.setOnClickListener(new View.OnClickListener() {
+       holder.device_status.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                changeStatus(deviceList.get(position).getId(),deviceList.get(position).getStatus());
@@ -73,22 +85,56 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         });
     }
 
+    public int getDrawable(String status){
+        if(status==null){
+            return R.mipmap.ic_loader;
+        }
+        switch (status){
+            case "false":
+
+                return R.mipmap.power_off;
+                default:
+                    return R.mipmap.power_on;
+
+        }
+
+    }
+public int getDeviceType(String type,String status){
+        if(status!=null) {
+            switch (type) {
+                case "light":
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.drawable.ic_lightbulb_on;
+                    } else {
+                        return R.drawable.ic_lightbulb_2;
+                    }
+                case "plug":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.drawable.ic_plug_on;
+                    } else {
+                        return R.drawable.ic_plug_off;
+                    }
+            }
+        }
+return R.drawable.ic_unknown;
+}
     @Override
     public int getItemCount() {
         return deviceList.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView device_status;
-        public TextView textView;
-        public EditText ed_brightness;
+        public TextView device_name;
+        public ImageView device_img;
         public RelativeLayout relativeLayout;
-        public Button change_status;
+        public ImageButton device_status;
+        public ProgressBar progressBar;
         public ViewHolder(View itemView) {
             super(itemView);
-            this.device_status = (TextView) itemView.findViewById(R.id.device_status);
-            this.change_status=(Button)itemView.findViewById(R.id.btn_change);
-            this.textView = (TextView) itemView.findViewById(R.id.textView);
-            this.ed_brightness=(EditText) itemView.findViewById(R.id.brightness);
+            this.device_name = (TextView) itemView.findViewById(R.id.deveice_name);
+            this.device_status=(ImageButton) itemView.findViewById(R.id.btn_change);
+            this.device_img = (ImageView) itemView.findViewById(R.id.img_vw);
+           this.progressBar=(ProgressBar) itemView.findViewById(R.id.prgress_bar_power);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relativeLayout);
         }
     }
@@ -120,6 +166,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
 
                     }
+
                     notifyItemChanged(position);
 
                 }catch(Exception e){

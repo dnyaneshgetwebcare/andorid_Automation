@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +65,9 @@ public class DashboardFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         ButterKnife.bind(this,root);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -95,7 +98,7 @@ public class DashboardFragment extends Fragment {
 
                             //getRealtimeListner(devicesModels.get(0).getId());
                             progressRv.setVisibility(View.GONE);
-                            adapter = new DeviceAdapter(devicesModels);
+                            adapter = new DeviceAdapter(devicesModels,getContext());
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());

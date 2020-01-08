@@ -1,5 +1,6 @@
 package com.getwebcare.automation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,7 @@ public class UserDataActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     @BindView(R.id.progress_rv)
     RelativeLayout progressRv;
-
+Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class UserDataActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        context=this;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -85,7 +86,7 @@ public class UserDataActivity extends AppCompatActivity {
 
                             //getRealtimeListner(devicesModels.get(0).getId());
                             progressRv.setVisibility(View.GONE);
-                            adapter = new DeviceAdapter(devicesModels);
+                            adapter = new DeviceAdapter(devicesModels,context);
                             recyclerView.setAdapter(adapter);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
