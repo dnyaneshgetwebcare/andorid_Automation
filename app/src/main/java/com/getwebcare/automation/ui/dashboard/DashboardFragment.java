@@ -86,14 +86,26 @@ public class DashboardFragment extends Fragment {
                                 Map<String, Object> group = document.getData();
                                 Log.d(TAG, document.getId() + " => " + document.getData().values().toString());
                                 //Log.d(TAG, reference.getId() + " => " + reference.getPath());
+                                DevicesModel devicesModel = null;
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
 
                                     //myRef.getKey()
-                                    DevicesModel devicesModel = new DevicesModel();
-                                    devicesModel.setName(entry.getKey());
-                                    devicesModel.setId(entry.getValue().toString());
+                                    if(entry.getKey().equalsIgnoreCase("roomtype")) {
+                                       // devicesModel.setName(entry.getKey());
+                                        if(devicesModel!=null) {
+                                            devicesModel.setType(entry.getValue().toString());
+                                        }
+                                    }else{
+                                        devicesModel = new DevicesModel();
+                                        devicesModel.setName(entry.getKey());
+                                        devicesModel.setId(entry.getValue().toString());
+                                    }
+
+                                }
+                                if(devicesModel!=null){
                                     devicesModels.add(devicesModel);
                                 }
+
                             }
 
                             //getRealtimeListner(devicesModels.get(0).getId());

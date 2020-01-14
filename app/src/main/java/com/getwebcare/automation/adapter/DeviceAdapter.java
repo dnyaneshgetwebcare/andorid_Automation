@@ -59,6 +59,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.rl_container.setVisibility(View.GONE);
         holder.progressBar.setVisibility(View.VISIBLE);
         holder.device_name.setText(deviceList.get(position).getName());
+        holder.room_type.setText(deviceList.get(position).getType());
         holder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
         holder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
       //  holder.change_status.setText(deviceList.get(position).getStatus());
@@ -104,16 +105,44 @@ public int getDeviceType(String type,String status){
             switch (type) {
                 case "light":
                     if (status.equalsIgnoreCase("true")) {
-                        return R.drawable.ic_lightbulb_on;
+                        return R.mipmap.bulb_on;
                     } else {
-                        return R.drawable.ic_lightbulb_2;
+                        return R.mipmap.bulb_off;
                     }
                 case "plug":
 
                     if (status.equalsIgnoreCase("true")) {
-                        return R.drawable.ic_plug_on;
+                        return R.mipmap.plug_on;
                     } else {
-                        return R.drawable.ic_plug_off;
+                        return R.mipmap.plug;
+                    }
+                case "ac":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.ac_on;
+                    } else {
+                        return R.mipmap.ac_off;
+                    }
+                    case "geyser":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.geyser_on;
+                    } else {
+                        return R.mipmap.geyser_off;
+                    }
+                case "fan":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.fan_on;
+                    } else {
+                        return R.mipmap.fan_off;
+                    }
+                case "curtain":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.curtain_on;
+                    } else {
+                        return R.mipmap.curtain_off;
                     }
             }
         }
@@ -124,7 +153,7 @@ return R.drawable.ic_unknown;
         return deviceList.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView device_name;
+        public TextView device_name,room_type;
         public ImageView device_img;
         public RelativeLayout relativeLayout;
         public ImageButton device_status;
@@ -133,6 +162,7 @@ return R.drawable.ic_unknown;
         public ViewHolder(View itemView) {
             super(itemView);
             this.device_name = (TextView) itemView.findViewById(R.id.deveice_name);
+            this.room_type = (TextView) itemView.findViewById(R.id.room_type);
             this.device_status=(ImageButton) itemView.findViewById(R.id.btn_change);
             this.device_img = (ImageView) itemView.findViewById(R.id.img_vw);
            this.progressBar=(ProgressBar) itemView.findViewById(R.id.prgress_bar_power);
@@ -187,6 +217,6 @@ return R.drawable.ic_unknown;
     public void changeStatus(String device_id,String status_val){
         DatabaseReference myRef = database.getReference().getRoot().child(device_id).child("OnOff").child("on");
         boolean bool = Boolean.parseBoolean(status_val);
-        myRef.setValue(!bool);
+        myRef.setValue((!bool)+"");
     }
 }

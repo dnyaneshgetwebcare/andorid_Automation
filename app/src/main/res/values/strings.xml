@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Automation</string>
+    <string name="app_name">iPlug</string>
     <string name="title_activity_launcher">LauncherActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="room">Rooms</string>
+    <string name="devices">Devices</string>
+    <string name="profile">Profile</string>
 </resources>

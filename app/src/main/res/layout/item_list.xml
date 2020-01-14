@@ -7,7 +7,7 @@
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-android:layout_margin="@dimen/activity_horizontal_margin"
+android:layout_margin="16dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -27,27 +27,37 @@ android:layout_margin="@dimen/activity_horizontal_margin"
         android:textStyle="bold"
         android:padding="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
-        android:textSize="14sp"/>
+        android:textSize="10sp"/>
 <ImageView
-    android:layout_width="120dp"
-    android:src="@drawable/ic_lightbulb_2"
+    android:layout_width="40dp"
+    android:src="@mipmap/ac_off"
     android:id="@+id/img_vw"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:gravity="center_vertical"
-    android:layout_height="90dp"></ImageView>
+    android:layout_height="30dp"></ImageView>
 
 
     <ImageButton
         android:id="@+id/btn_change"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
 android:background="@null"
         android:src="@mipmap/power_off"
         android:text="Click"
+        android:textSize="12sp"/>
+    <TextView
+        android:id="@+id/room_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:padding="@dimen/activity_horizontal_margin"
+       android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:textSize="16sp"/>
-
 
 </RelativeLayout>
         <ProgressBar
