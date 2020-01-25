@@ -2,20 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
+    android:layout_margin="5dp"
+
     android:layout_height="wrap_content"
     >
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-android:layout_margin="16dp"
+
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        card_view:cardCornerRadius="6dp">
+        card_view:cardCornerRadius="8dp">
 <RelativeLayout
     android:layout_width="match_parent"
     android:id="@+id/rv_contain_holder"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:padding="10dp"
+  android:background="@color/colorPrimary"
     android:layout_height="match_parent" >
 
 
@@ -25,25 +28,28 @@ android:layout_margin="16dp"
         android:layout_height="wrap_content"
     android:text="Device name"
         android:textStyle="bold"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textColor="@color/white"
         android:gravity="center_vertical"
-        android:textSize="10sp"/>
+        android:textSize="12sp"/>
 <ImageView
-    android:layout_width="40dp"
+    android:layout_width="match_parent"
     android:src="@mipmap/ac_off"
     android:id="@+id/img_vw"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
+    android:layout_margin="36dp"
+    android:scaleType="fitCenter"
+   android:layout_centerInParent="true"
     android:gravity="center_vertical"
-    android:layout_height="30dp"></ImageView>
+    android:layout_height="match_parent"></ImageView>
 
 
     <ImageButton
         android:id="@+id/btn_change"
-        android:layout_width="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_height="20dp"
-android:background="@null"
+        android:layout_width="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="30dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@mipmap/power_off"
         android:text="Click"
         android:textSize="12sp"/>
@@ -52,12 +58,12 @@ android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Room"
-        android:textColor="@color/colorPrimaryDark"
+        android:visibility="gone"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
-        android:padding="@dimen/activity_horizontal_margin"
        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="16sp"/>
+        android:textSize="12sp"/>
 
 </RelativeLayout>
         <ProgressBar

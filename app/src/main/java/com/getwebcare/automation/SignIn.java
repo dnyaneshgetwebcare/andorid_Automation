@@ -1,18 +1,18 @@
 package com.getwebcare.automation;
 
 
-
 import android.content.Intent;
-//import android.support.annotation.NonNull;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.getwebcare.automation.until.GifImageView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,6 +25,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+//import android.support.annotation.NonNull;
+//import android.support.v7.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SignIn extends AppCompatActivity {
 
@@ -40,11 +45,16 @@ public class SignIn extends AppCompatActivity {
     //And also a Firebase Auth object
     FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_sign_in);
-
+        ButterKnife.bind(this);
+        getSupportActionBar().hide();
         //first we intialized the FirebaseAuth object
         mAuth = FirebaseAuth.getInstance();
 
@@ -67,6 +77,7 @@ public class SignIn extends AppCompatActivity {
                 signIn();
             }
         });
+
     }
 
     @Override
@@ -99,7 +110,8 @@ public class SignIn extends AppCompatActivity {
                 //authenticating with firebase
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(SignIn.this, "Failed to signin", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -119,9 +131,9 @@ public class SignIn extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             user.getUid();
-                            Toast.makeText(SignIn.this, "User Signed In "+user.getUid(), Toast.LENGTH_SHORT).show();
-                        Intent  intent=new Intent(SignIn.this,LauncherActivity.class);
-                        startActivity(intent);
+                            Toast.makeText(SignIn.this, "User Signed In " + user.getUid(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignIn.this, LauncherActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
