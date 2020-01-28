@@ -20,10 +20,10 @@
             android:layout_width="0dp"
             android:layout_weight="4.5"
             android:layout_height="wrap_content"
-            android:gravity="end"
+
             android:padding="10dp"
             android:text="TextView"
-            android:textAlignment="viewEnd"
+
             android:textColor="#fff"
             android:textSize="15sp"
 
@@ -31,10 +31,10 @@
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@null"
             android:id="@+id/expandable_btn"
             android:layout_weight="0.5"
-            android:src="@android:drawable/ic_input_add"></ImageButton>
+            android:src="@drawable/ic_action_unfold_more"></ImageButton>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ import static android.content.ContentValues.TAG;
 final class ExpandableRoomSection extends Section {
 
     final String title;
-    //final List<DevicesModel> list;
+    final List<RoomsModel> list;
     final ClickListener clickListener;
     List<DevicesModel> deviceList;
     //SectionedRecyclerViewAdapter sectionedRecyclerViewAdapter;
@@ -40,7 +40,7 @@ final class ExpandableRoomSection extends Section {
     Context context;
     private boolean expanded = true;
     ExpandableRoomSection(@NonNull final String title, @NonNull final List<DevicesModel> deviceList,
-                           @NonNull final ClickListener clickListener,Context context) {
+                           @NonNull final ClickListener clickListener,Context context,List<RoomsModel> list) {
         super(SectionParameters.builder()
                 .itemResourceId(R.layout.item_list)
                 .headerResourceId(R.layout.list_header)
@@ -48,7 +48,7 @@ final class ExpandableRoomSection extends Section {
         //this.sectionedRecyclerViewAdapter=sectionedRecyclerViewAdapter;
         this.title = title;
 
-       // this.list = list;
+       this.list = list;
         this.clickListener = clickListener;
         this.deviceList = deviceList;
         database = FirebaseDatabase.getInstance();
@@ -158,6 +158,7 @@ final class ExpandableRoomSection extends Section {
                 expanded ? R.drawable.ic_keyboard_arrow_up_black_18dp : R.drawable.ic_keyboard_arrow_down_black_18dp
         );
 */
+//Log.w("Adapter Postion",)
         headerHolder.rootView.setOnClickListener(v ->
                 clickListener.onHeaderRootViewClicked(title, this)
         );

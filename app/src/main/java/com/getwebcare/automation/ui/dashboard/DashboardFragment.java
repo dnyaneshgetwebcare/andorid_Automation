@@ -21,6 +21,7 @@ import com.getwebcare.automation.adapter.DeviceAdapter;
 
 import com.getwebcare.automation.models.DevicesModel;
 import com.getwebcare.automation.models.RoomsModel;
+import com.getwebcare.automation.until.RoomModelSort;
 import com.getwebcare.automation.until.SortByRoom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +54,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
     RelativeLayout progressRv;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    List<String> roomsModels;
+    List<RoomsModel> roomsModels;
     ExpandableRoomSection.ClickListener clickListener;
     private static final String TAG = "UserDataActivity";
    // DeviceAdapter adapter;
@@ -81,7 +82,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
         database = FirebaseDatabase.getInstance();
         ButterKnife.bind(this,root);
         recyclerView.setHasFixedSize(true);
-        roomsModels=new ArrayList<String>();
+        roomsModels=new ArrayList<RoomsModel>();
        // RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
       //  recyclerView.setLayoutManager(mLayoutManager);
         //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -123,10 +124,12 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                        // devicesModel.setName(entry.getKey());
                                         if(devicesModel!=null) {
                                             devicesModel.setType(entry.getValue().toString());
-                                            //roomM=new RoomsModel();
-                                            //roomM.setRoomName(entry.getValue().toString());
+                                            roomM=new RoomsModel();
+                                            roomM.setRoomName(entry.getValue().toString());
                                             if(!roomsModels.contains(entry.getValue().toString())){
-                                                roomsModels.add(entry.getValue().toString());
+                                                roomM.setOff_count(0);
+                                                roomM.setOff_count(0);
+                                                roomsModels.add(roomM);
                                             }
                                         }
                                     }else{
@@ -143,7 +146,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
 
                             }
                             Collections.sort(devicesModels,new SortByRoom());
-                            Collections.sort(roomsModels);
+                            Collections.sort(roomsModels,new RoomModelSort());
                             //getRealtimeListner(devicesModels.get(0).getId());
                             progressRv.setVisibility(View.GONE);
                             //adapter = new DeviceAdapter(devicesModels,getContext());
@@ -152,12 +155,12 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                 devicelist=new ArrayList<DevicesModel>();
                                 for (DevicesModel dev_model:devicesModels
                                      ) {
-                                    if(dev_model.getType().equalsIgnoreCase(roomsModels.get(i))) {
+                                    if(dev_model.getType().equalsIgnoreCase(roomsModels.get(i).getRoomName())) {
                                         devicelist.add(dev_model);
                                     }
                                 }
 
-                                sectionedAdapter.addSection(roomsModels.get(i),new ExpandableRoomSection(roomsModels.get(i),devicelist,clickListener,getContext()));
+                                sectionedAdapter.addSection(roomsModels.get(i).getRoomName(),new ExpandableRoomSection(roomsModels.get(i).getRoomName(),devicelist,clickListener,getContext(),roomsModels));
                             }
 
                           //  recyclerView.setAdapter(adapter);
@@ -211,20 +214,19 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
     }
     @Override
     public void onHeaderRootViewClicked(@NonNull String sectionTitle, @NonNull ExpandableRoomSection section) {
-    /*    final SectionAdapter sectionAdapter = sectionedAdapter.getAdapterForSection(section);
 
         // store info of current section state before changing its state
         final boolean wasExpanded = section.isExpanded();
         final int previousItemsTotal = section.getContentItemsTotal();
 
         section.setExpanded(!wasExpanded);
-        sectionAdapter.notifyHeaderChanged();
+        sectionedAdapter.notifyHeaderChangedInSection(section);
 
-        if (wasExpanded) {
-            sectionAdapter.notifyItemRangeRemoved(0, previousItemsTotal);
-        } else {
-            sectionAdapter.notifyAllItemsInserted();
-        }*/
+//        if (wasExpanded) {
+//            sectionAdapter.notifyItemRangeRemoved(0, previousItemsTotal);
+//        } else {
+//            sectionAdapter.notifyAllItemsInserted();
+//        }
     }
 
     @Override
