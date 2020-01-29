@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.getwebcare.automation.R;
 import com.getwebcare.automation.adapter.CriticalDeviceAdapter;
+import com.getwebcare.automation.adapter.OtherDeviceAdapter;
 import com.getwebcare.automation.models.CriticalDevices;
 import com.getwebcare.automation.models.OtherDevices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
     List<OtherDevices> otherDevicesList;
     FirebaseAuth mAuth;
     CriticalDeviceAdapter criticalDevicesAdapter;
-
+OtherDeviceAdapter otherDeviceAdapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -87,18 +88,28 @@ public class HomeFragment extends Fragment {
                                         // devicesModel.setName(entry.getKey());
                                         if (criticalDevices != null) {
                                             criticalDevices.setType(entry.getValue().toString());
-                                            otherDevices = new OtherDevices();
-                                            otherDevices.setRoomtype(entry.getValue().toString());
-                                            if (!otherDevicesList.contains(entry.getValue().toString())) {
-                                                otherDevices.setOffDevices(0);
-                                                otherDevices.setOnDevices(0);
-                                                otherDevicesList.add(otherDevices);
-                                            }
+
                                         }
                                     } else {
                                         criticalDevices = new CriticalDevices();
                                         criticalDevices.setName(entry.getKey());
                                         criticalDevices.setId(entry.getValue().toString());
+
+                                        otherDevices = new OtherDevices();
+                                        otherDevices.setRoomtype(entry.getKey().toString());
+                                        if (!otherDevicesList.contains(entry.getKey().toString())) {
+                                            otherDevices.setOffDevices(1);
+                                            otherDevices.setOnDevices(1);
+                                            otherDevicesList.add(otherDevices);
+                                        }else{
+                                            for (OtherDevices p : otherDevicesList) {
+                                                if (p.getRoomtype().equals(entry.getKey().toString())) {
+                                                    p.setOnDevices(p.getOnDevices()+1);
+                                                    break;
+                                                }
+                                            }
+                                        }
+
                                     }
 
                                 }
@@ -125,7 +136,8 @@ public class HomeFragment extends Fragment {
 
                                 sectionedAdapter.addSection(roomsModels.get(i).getRoomName(),new ExpandableRoomSection(roomsModels.get(i).getRoomName(),devicelist,clickListener,getContext(),roomsModels));
                             }*/
-
+                          otherDeviceAdapter=new OtherDeviceAdapter(otherDevicesList,getContext());
+                          otherDeviceList.setAdapter(otherDeviceAdapter);
                               criticalDevice.setAdapter(criticalDevicesAdapter);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
