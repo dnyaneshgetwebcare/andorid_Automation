@@ -34,7 +34,7 @@ public class OtherDeviceAdapter extends RecyclerView.Adapter<OtherDeviceAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 OtherDevices otherDevices =otherDevicesList.get(position);
-holder.header_room.setText(otherDevices.getRoomtype());
+holder.header_room.setText(otherDevices.getRoomtype().toUpperCase());
 holder.on_count.setText(otherDevices.getOnDevices()+"");
 holder.off_status.setText(otherDevices.getOffDevices()+"");
     }
