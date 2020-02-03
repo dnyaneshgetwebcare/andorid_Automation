@@ -58,8 +58,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         final DevicesModel myListData = deviceList.get(position);
         holder.rl_container.setVisibility(View.GONE);
         holder.progressBar.setVisibility(View.VISIBLE);
-        holder.device_name.setText(deviceList.get(position).getName());
-        holder.room_type.setText(deviceList.get(position).getType());
+        holder.device_name.setText( getname(deviceList.get(position).getName()));
+        holder.room_type.setText( deviceList.get(position).getType());
         holder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
         holder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
       //  holder.change_status.setText(deviceList.get(position).getStatus());
@@ -85,6 +85,26 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             }
         });
     }
+public String getname(String type){
+        switch (type){
+            case "ac":
+                return "Air Conditioner";
+            case "plug":
+                return "Plug";
+            case "door":
+                return "Door";
+            case "light":
+                return "Light";
+            case "geyser":
+                return "Geyser";
+            case "fan":
+                return "Fan";
+            case "curtain":
+                return "Curtain";
+                default: return "";
+        }
+
+}
 
     public int getDrawable(String status){
         if(status==null){
@@ -144,6 +164,7 @@ public int getDeviceType(String type,String status){
                     } else {
                         return R.mipmap.curtain_off;
                     }
+
             }
         }
 return R.drawable.ic_unknown;

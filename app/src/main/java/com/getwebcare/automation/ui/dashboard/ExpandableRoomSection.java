@@ -72,7 +72,7 @@ final class ExpandableRoomSection extends Section {
         final DevicesModel myListData = deviceList.get(position);
         itemHolder.rl_container.setVisibility(View.GONE);
         itemHolder.progressBar.setVisibility(View.VISIBLE);
-        itemHolder.device_name.setText(deviceList.get(position).getName());
+        itemHolder.device_name.setText(getname(deviceList.get(position).getName()) );
         itemHolder.room_type.setText(deviceList.get(position).getType());
         itemHolder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
         itemHolder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
@@ -148,7 +148,26 @@ final class ExpandableRoomSection extends Section {
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
         return new HeaderViewHolder(view);
     }
+    public String getname(String type){
+        switch (type){
+            case "ac":
+                return "Air Conditioner";
+            case "plug":
+                return "Plug";
+            case "door":
+                return "Door";
+            case "light":
+                return "Light";
+            case "geyser":
+                return "Geyser";
+            case "fan":
+                return "Fan";
+            case "curtain":
+                return "Curtain";
+            default: return "";
+        }
 
+    }
     @Override
     public void onBindHeaderViewHolder(final RecyclerView.ViewHolder holder) {
         final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
@@ -159,9 +178,9 @@ final class ExpandableRoomSection extends Section {
         );
 */
 //Log.w("Adapter Postion",)
-        headerHolder.rootView.setOnClickListener(v ->
+      /*  headerHolder.rootView.setOnClickListener(v ->
                 clickListener.onHeaderRootViewClicked(title, this)
-        );
+        );*/
     }
     public void changeStatus(String device_id,String status_val){
         try {

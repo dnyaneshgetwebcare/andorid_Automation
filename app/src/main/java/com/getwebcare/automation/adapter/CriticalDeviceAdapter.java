@@ -48,7 +48,7 @@ public class CriticalDeviceAdapter extends RecyclerView.Adapter<CriticalDeviceAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final CriticalDevices myListData = criticalDevicesList.get(position);
-        holder.device_name.setText(myListData.getName().toUpperCase()+" ("+myListData.getType()+")");
+        holder.device_name.setText(getname(myListData.getName())+" ("+myListData.getType()+")");
         //holder.device_status.;
 
         if(criticalDevicesList.get(position).getStatus()==null || criticalDevicesList.get(position).getStatus().equalsIgnoreCase("")){
@@ -105,6 +105,26 @@ public class CriticalDeviceAdapter extends RecyclerView.Adapter<CriticalDeviceAd
 
 
         });
+    }
+    public String getname(String type){
+        switch (type){
+            case "ac":
+                return "Air Conditioner";
+            case "plug":
+                return "Plug";
+            case "door":
+                return "Door";
+            case "light":
+                return "Light";
+            case "geyser":
+                return "Geyser";
+            case "fan":
+                return "Fan";
+            case "curtain":
+                return "Curtain";
+            default: return "";
+        }
+
     }
     @Override
     public int getItemCount() {

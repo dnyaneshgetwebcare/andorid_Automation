@@ -108,6 +108,8 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        try{
                         if (task.isSuccessful()) {
                             devicesModels = new ArrayList<DevicesModel>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -118,6 +120,8 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                 DevicesModel devicesModel = null;
                                 RoomsModel roomM=null;
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
+                                    try{
+
 
                                     //myRef.getKey()
                                     if(entry.getKey().equalsIgnoreCase("roomtype")) {
@@ -136,6 +140,9 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                         devicesModel = new DevicesModel();
                                         devicesModel.setName(entry.getKey());
                                         devicesModel.setId(entry.getValue().toString());
+                                    }
+                                    }catch (Exception ex){
+                                        Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -166,6 +173,9 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                           //  recyclerView.setAdapter(adapter);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                        }catch (Exception ex){
+                            Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
