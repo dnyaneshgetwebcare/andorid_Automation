@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/dashboard"
     android:layout_height="match_parent">
 
     <TextView
@@ -10,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:background="@color/colorPrimaryDark"
-        android:textAlignment="viewEnd"
-        android:gravity="end"
-
-        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="start"
+        android:padding="@dimen/header_size"
+        android:textAlignment="center"
+        android:textSize="@dimen/dashboard_header_size"
         android:text="Device Status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,12 +34,12 @@
         android:id="@+id/other_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Nos. of Device"
+        android:gravity="start"
+        android:padding="@dimen/header_size"
         android:textColor="@color/white"
-        android:background="@color/colorPrimaryDark"
-        android:textAlignment="viewEnd"
-        android:gravity="end"
+        android:text="Total Devices"
+        android:textAlignment="center"
+        android:textSize="@dimen/dashboard_header_size"
         app:layout_constraintBottom_toTopOf="@+id/other_device_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/other_device_list"
         android:layout_width="match_parent"
-
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@+id/other_text"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
