@@ -115,7 +115,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //DocumentReference snapshot=document.get();
                                 Map<String, Object> group = document.getData();
-                                Log.d(TAG, document.getId() + " => " + document.getData().values().toString());
+                                //Log.d(TAG, document.getId() + " => " + document.getData().values().toString());
                                 //Log.d(TAG, reference.getId() + " => " + reference.getPath());
                                 DevicesModel devicesModel = null;
                                 RoomsModel roomM=null;
@@ -147,7 +147,11 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
 
                                 }
                                 if(devicesModel!=null){
-                                    devicesModels.add(devicesModel);
+                                    if(devicesModel.getType()==null){
+                                        Toast.makeText(getContext(), "Type entry is missing please check", Toast.LENGTH_LONG).show();
+                                    }else {
+                                        devicesModels.add(devicesModel);
+                                    }
 
                                 }
 

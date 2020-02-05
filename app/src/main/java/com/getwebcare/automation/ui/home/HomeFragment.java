@@ -1,5 +1,6 @@
 package com.getwebcare.automation.ui.home;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -70,6 +72,7 @@ OtherDeviceAdapter otherDeviceAdapter;
         db.collection("users").document(user.getEmail()).collection("devices")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -97,7 +100,7 @@ OtherDeviceAdapter otherDeviceAdapter;
 
                                         otherDevices = new OtherDevices();
                                         otherDevices.setRoomtype(entry.getKey().toString());
-                                        if (!otherDevicesList.contains(entry.getKey().toString())) {
+                                        if (!containsName(otherDevicesList,entry.getKey().toString())) {
                                             otherDevices.setOffDevices(1);
                                             otherDevices.setOnDevices(1);
                                             otherDevicesList.add(otherDevices);
@@ -145,5 +148,9 @@ OtherDeviceAdapter otherDeviceAdapter;
                     }
                 });
         return root;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public boolean containsName(final List<OtherDevices> list, final String name){
+        return list.stream().map(OtherDevices::getRoomtype).filter(name::equals).findFirst().isPresent();
     }
 }
