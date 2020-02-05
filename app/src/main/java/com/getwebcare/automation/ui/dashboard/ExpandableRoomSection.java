@@ -205,7 +205,14 @@ final class ExpandableRoomSection extends Section {
                     if (status.equalsIgnoreCase("true")) {
                         return R.mipmap.plug_on;
                     } else {
-                        return R.mipmap.plug;
+                        return R.mipmap.plug_off;
+                    }
+                case "door":
+
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.door_on;
+                    } else {
+                        return R.mipmap.door_off;
                     }
                 case "ac":
 
