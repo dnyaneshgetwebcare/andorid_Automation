@@ -121,7 +121,9 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                 RoomsModel roomM=null;
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
                                     try{
-
+                                        if (devicesModel == null) {
+                                            devicesModel = new DevicesModel();
+                                        }
 
                                     //myRef.getKey()
                                     if(entry.getKey().equalsIgnoreCase("roomtype")) {
@@ -137,7 +139,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                             }
                                         }
                                     }else{
-                                        devicesModel = new DevicesModel();
+                                        // devicesModel = new DevicesModel();
                                         devicesModel.setName(entry.getKey());
                                         devicesModel.setId(entry.getValue().toString());
                                     }
@@ -148,11 +150,12 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                                 }
                                 if(devicesModel!=null){
                                     if(devicesModel.getType()==null){
-                                        Toast.makeText(getContext(), "Type entry is missing please check", Toast.LENGTH_LONG).show();
-                                    }else {
+                                        devicesModel.setType("unknown");
+                                        // Toast.makeText(getContext(), "Type entry is missing please check", Toast.LENGTH_LONG).show();
+                                    }/*else {
                                         devicesModels.add(devicesModel);
-                                    }
-
+                                    }*/
+                                    devicesModels.add(devicesModel);
                                 }
 
                             }

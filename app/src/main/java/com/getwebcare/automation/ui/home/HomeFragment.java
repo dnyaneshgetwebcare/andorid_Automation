@@ -72,7 +72,7 @@ OtherDeviceAdapter otherDeviceAdapter;
         db.collection("users").document(user.getEmail()).collection("devices")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -85,7 +85,9 @@ OtherDeviceAdapter otherDeviceAdapter;
                                 CriticalDevices criticalDevices = null;
                                 OtherDevices otherDevices = null;
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
-
+                                    if (criticalDevices == null) {
+                                        criticalDevices = new CriticalDevices();
+                                    }
                                     //myRef.getKey()
                                     if (entry.getKey().equalsIgnoreCase("roomtype")) {
                                         // devicesModel.setName(entry.getKey());
@@ -94,15 +96,16 @@ OtherDeviceAdapter otherDeviceAdapter;
 
                                         }
                                     } else {
-                                        criticalDevices = new CriticalDevices();
+                                        // criticalDevices = new CriticalDevices();
                                         criticalDevices.setName(entry.getKey());
                                         criticalDevices.setId(entry.getValue().toString());
 
                                         otherDevices = new OtherDevices();
                                         otherDevices.setRoomtype(entry.getKey().toString());
-                                        if (!containsName(otherDevicesList,entry.getKey().toString())) {
-                                            otherDevices.setOffDevices(1);
-                                            otherDevices.setOnDevices(1);
+                                        otherDevices.setOffDevices(1);
+                                        otherDevices.setOnDevices(1);
+                                        if (!otherDevicesList.contains(otherDevices)) {
+
                                             otherDevicesList.add(otherDevices);
                                         }else{
                                             for (OtherDevices p : otherDevicesList) {
@@ -149,8 +152,8 @@ OtherDeviceAdapter otherDeviceAdapter;
                 });
         return root;
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
+   /* @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean containsName(final List<OtherDevices> list, final String name){
         return list.stream().map(OtherDevices::getRoomtype).filter(name::equals).findFirst().isPresent();
-    }
+    }*/
 }
