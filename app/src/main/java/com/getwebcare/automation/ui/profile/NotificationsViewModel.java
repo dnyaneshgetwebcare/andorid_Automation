@@ -1,4 +1,4 @@
-package com.getwebcare.automation.ui.notifications;
+package com.getwebcare.automation.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

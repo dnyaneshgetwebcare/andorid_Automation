@@ -1,4 +1,4 @@
-package com.getwebcare.automation.ui.dashboard;
+package com.getwebcare.automation.ui.devices;
 
 import android.os.Bundle;
 import android.util.Log;

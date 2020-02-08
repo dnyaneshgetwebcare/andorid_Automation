@@ -1,4 +1,4 @@
-package com.getwebcare.automation.ui.notifications;
+package com.getwebcare.automation.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -145,9 +145,37 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), SignIn.class));
                 break;
             case R.id.save:
-                updateProfile();
+                if(valid_update()) {
+                    updateProfile();
+                }
                 break;
         }
+    }
+
+    private boolean valid_update() {
+        boolean status_flag=true;
+        if(tvAddress.getText().toString().isEmpty()){
+            status_flag=false;
+            tvAddress.setError("Cannot be blank");
+        }
+        if(tvName.getText().toString().isEmpty()){
+            status_flag=false;
+            tvName.setError("Cannot be blank");
+        }
+        if(tvPhone.getText().toString().isEmpty()){
+            status_flag=false;
+            tvPhone.setError("Cannot be blank");
+        }
+        if(propertyType.getText().toString().isEmpty()){
+            status_flag=false;
+            propertyType.setError("Cannot be blank");
+        }
+        if(propertyVariant.getText().toString().isEmpty()){
+            status_flag=false;
+            propertyVariant.setError("Cannot be blank");
+        }
+
+        return status_flag;
     }
 
     public void updateProfile(){
@@ -165,12 +193,14 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
+                        Toast.makeText(getContext(), "Successfully Saved" , Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
+                        Toast.makeText(getContext(), "Failed to save" , Toast.LENGTH_LONG).show();
                     }
                 });
     }

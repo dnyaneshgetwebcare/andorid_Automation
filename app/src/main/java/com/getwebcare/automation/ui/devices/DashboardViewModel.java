@@ -1,4 +1,4 @@
-package com.getwebcare.automation.ui.dashboard;
+package com.getwebcare.automation.ui.devices;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
