@@ -11,12 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getwebcare.automation.R;
-import com.getwebcare.automation.UserDataActivity;
-import com.getwebcare.automation.adapter.DeviceAdapter;
 
 
 import com.getwebcare.automation.models.DevicesModel;
@@ -37,19 +34,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
-import static android.content.ContentValues.TAG;
-
-public class DashboardFragment extends Fragment implements ExpandableRoomSection.ClickListener {
+public class DevicesFragment extends Fragment implements ExpandableRoomSection.ClickListener {
     @BindView(R.id.progress_rv)
     RelativeLayout progressRv;
     @BindView(R.id.recyclerView)
@@ -68,7 +61,7 @@ public class DashboardFragment extends Fragment implements ExpandableRoomSection
                              ViewGroup container, Bundle savedInstanceState) {
        /* dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);*/
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.fragment_device, container, false);
         // final TextView textView = root.findViewById(R.id.text_dashboard);
         /*dashboardViewModel.getText().observe(this, new Observer<String>() {
             @Override

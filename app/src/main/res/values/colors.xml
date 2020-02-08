@@ -2,15 +2,17 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#444444</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorAccent">#F3EDED</color>
     <color name="graylight">#1A000000</color>
     <color name="lightprimary">#99000000</color>
+    <color name="hintColor">#B3B1B1</color>
     <color name="white">#fff</color>
     <color name="unknown_status">#E9E980</color>
     <color name="on_status">#FFEC16</color>
     <color name="off_status">#FF6868</color>
     <color name="off_white">#66FFFFFF</color>
     <color name="trans_black">#99000000</color>
+    <color name="button_color">#5991F0</color>
 
     <!--   <color name="colorPrimary">#CC000000</color>
        <color name="colorPrimaryDark">#444444</color>

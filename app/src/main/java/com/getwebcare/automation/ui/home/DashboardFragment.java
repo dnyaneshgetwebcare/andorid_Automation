@@ -1,6 +1,5 @@
 package com.getwebcare.automation.ui.home;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,8 +34,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment {
-    String TAG = "HomeFragment";
+public class DashboardFragment extends Fragment {
+    String TAG = "DashboardFragment";
     @BindView(R.id.textView)
     TextView textView;
     @BindView(R.id.critical_device)
@@ -57,7 +54,7 @@ OtherDeviceAdapter otherDeviceAdapter;
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ButterKnife.bind(this,root);
         criticalDevice.setHasFixedSize(true);
         otherDevicesList=new ArrayList<OtherDevices>();
@@ -67,8 +64,8 @@ OtherDeviceAdapter otherDeviceAdapter;
        // database = FirebaseDatabase.getInstance()
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+      //  Log.d(TAG, "User Signed In " + user.getEmail());
+        //Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         db.collection("users").document(user.getEmail()).collection("devices")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -104,17 +101,22 @@ OtherDeviceAdapter otherDeviceAdapter;
                                         otherDevices.setRoomtype(entry.getKey().toString());
                                         otherDevices.setOffDevices(1);
                                         otherDevices.setOnDevices(1);
-                                        if (!otherDevicesList.contains(otherDevices)) {
+                                       /* if (!otherDevicesList.contains(otherDevices)) {
 
                                             otherDevicesList.add(otherDevices);
-                                        }else{
+                                        }else{*/
+                                       boolean new_device=true;
                                             for (OtherDevices p : otherDevicesList) {
                                                 if (p.getRoomtype().equals(entry.getKey().toString())) {
                                                     p.setOnDevices(p.getOnDevices()+1);
+                                                    new_device=false;
                                                     break;
                                                 }
                                             }
-                                        }
+                                            if(new_device){
+                                                otherDevicesList.add(otherDevices);
+                                            }
+                                        //}
 
                                     }
 

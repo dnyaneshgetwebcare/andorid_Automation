@@ -14,7 +14,8 @@
             android:name=".LauncherActivity"
             android:label="@string/title_activity_launcher" />
         <activity android:name=".UserDataActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
