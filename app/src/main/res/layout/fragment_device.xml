@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:id="@+id/recyclerView"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:paddingBottom="50dp"
             >
         </androidx.recyclerview.widget.RecyclerView></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

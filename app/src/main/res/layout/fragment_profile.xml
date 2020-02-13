@@ -20,159 +20,181 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:tooltipText="Logout"
             android:layout_height="wrap_content"></ImageButton>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:orientation="vertical">
             <ImageView
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="50dp"
                 android:id="@+id/img_profile"
                 android:src="@mipmap/ic_profile"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 />
-            <TextView
-                android:textStyle="bold"
-                android:id="@+id/tv_email"
-                android:paddingLeft="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:hint="email iD"
-                android:text=""/>
+            <!--            <TextView-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:id="@+id/tv_email"-->
+            <!--                android:paddingLeft="10dp"-->
+            <!--                android:layout_gravity="center_vertical"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textColor="#ffffff"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:hint="email iD"-->
+            <!--                android:text=""/>-->
 
         </LinearLayout>
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/ll_details"
         android:layout_below="@id/profile_rl"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:orientation="vertical"
+        android:paddingBottom="100dp">
 
-        android:layout_marginRight="@dimen/activity_horizontal_margin">
         <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@mipmap/ic_email"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+            <!--            <ImageView-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:layout_marginTop="12dp"-->
+            <!--                android:src="@mipmap/ic_email"/>-->
             <EditText
                 android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:hint="Name"
                 android:backgroundTint="@color/colorAccent"
-                android:textColorHint="@color/hintColor"
+                android:hint="Name"
+                android:text=""
                 android:textColor="#ffffff"
-                android:textStyle="bold"
-                android:textSize="21sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@mipmap/ic_phone"/>
-            <EditText
-                android:textStyle="bold"
-                android:id="@+id/tv_phone"
-                android:paddingLeft="10dp"
-                android:backgroundTint="@color/white"
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:hint="Phone Nos"
                 android:textColorHint="@color/hintColor"
-                android:text=""/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <EditText
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/colorAccent"
+                android:hint="Email ID"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textColorHint="@color/hintColor"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@mipmap/ic_phone"/>
+            android:paddingLeft="10dp">
+
             <EditText
-                android:textStyle="bold"
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/white"
+                android:hint="Phone No"
+                android:paddingLeft="10dp"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textColorHint="@color/hintColor"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <EditText
                 android:id="@+id/tv_address"
-                android:paddingLeft="10dp"
-                android:backgroundTint="@color/white"
-                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:lines="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/white"
                 android:hint="Address"
-                android:textColorHint="@color/hintColor"
-                android:layout_height="wrap_content"
+                android:lines="2"
+                android:paddingLeft="10dp"
+                android:text=""
                 android:textColor="#ffffff"
-                android:text=""/>
+                android:textColorHint="@color/hintColor"
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@mipmap/ic_phone"/>
+            android:paddingLeft="10dp">
+
             <EditText
-                android:textStyle="bold"
                 android:id="@+id/property_type"
-                android:paddingLeft="10dp"
-                android:hint="Property Type"
-                android:textColorHint="@color/hintColor"
-                android:backgroundTint="@color/white"
-                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/white"
+                android:hint="Property Type"
+                android:paddingLeft="10dp"
+                android:text=""
                 android:textColor="#ffffff"
-                android:text=""/>
+                android:textColorHint="@color/hintColor"
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@mipmap/ic_phone"/>
+            android:paddingLeft="10dp">
+
             <EditText
-                android:textStyle="bold"
                 android:id="@+id/property_variant"
-                android:paddingLeft="10dp"
-                android:backgroundTint="@color/white"
-                android:layout_gravity="center_vertical"
-                android:hint="Property Varient"
-                android:textColorHint="@color/hintColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/white"
+                android:hint="Property Varient"
+                android:paddingLeft="10dp"
+                android:text=""
                 android:textColor="#ffffff"
-                android:text=""/>
+                android:textColorHint="@color/hintColor"
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </LinearLayout>
 
         <!--<View-->
@@ -192,7 +214,7 @@
             android:layout_height="wrap_content"
 
 
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center|center_horizontal"
 
             android:background="@color/button_color"
 

@@ -3,8 +3,6 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#444444</color>
     <color name="colorAccent">#F3EDED</color>
-    <color name="graylight">#1A000000</color>
-    <color name="lightprimary">#99000000</color>
     <color name="hintColor">#B3B1B1</color>
     <color name="white">#fff</color>
     <color name="unknown_status">#E9E980</color>

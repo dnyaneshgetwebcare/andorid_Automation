@@ -8,34 +8,34 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:798584862104:android:91f3f925528e1e6d6267ed",
+        "mobilesdk_app_id": "1:798584862104:android:663e4be011ce3a8c6267ed",
         "android_client_info": {
-          "package_name": "com.getwebcare.automation"
+          "package_name": "com.iplug.automation"
         }
       },
       "oauth_client": [
         {
-          "client_id": "798584862104-2mjj05k7oi00g0bbpgjkjipv58fkujfe.apps.googleusercontent.com",
+          "client_id": "798584862104-gbljiuqasbss3ej2fg15j7ctc243lihe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.getwebcare.automation",
+            "package_name": "com.iplug.automation",
+            "certificate_hash": "65fd7091332888ca17d79d9c9efacaaf49355d65"
+          }
+        },
+        {
+          "client_id": "798584862104-qb840o8uclc090kth2ng7dldv6lqvl34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iplug.automation",
+            "certificate_hash": "32623d2a62b0968d6fc42e48a89622dbe6803165"
+          }
+        },
+        {
+          "client_id": "798584862104-ctklejlc3dhm9n763cef3qk9taplbgjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iplug.automation",
             "certificate_hash": "8dde448424286c5e3f467b22c9bb950f85c90f17"
-          }
-        },
-        {
-          "client_id": "798584862104-cmrmjmuosm8obtku598gnrh777tigu6e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.getwebcare.automation",
-            "certificate_hash": "01fb72efa3c5cd57b6a253f49da045ef719342a8"
-          }
-        },
-        {
-          "client_id": "798584862104-a1he3b5krp3f6jci8l72b0ul450mv073.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.getwebcare.automation",
-            "certificate_hash": "99ee4670150b89e58fdd4967cdbcb93260195740"
           }
         },
         {
