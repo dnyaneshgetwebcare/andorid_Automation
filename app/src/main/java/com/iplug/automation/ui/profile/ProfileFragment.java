@@ -30,6 +30,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,50 +89,60 @@ public class ProfileFragment extends Fragment {
        // Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         db.collection("users").document(user.getEmail()).collection("user_details").document("personal_details")
                 .get()
-       .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                       // document.getData();
-                        Map<String, Object> group = document.getData();
-                        for (Map.Entry<String, Object> entry : group.entrySet()) {
-                            Log.w(TAG,entry.getKey()+" => "+entry.getValue());
-                            switch (entry.getKey()){
-                                case "name":
-                                    tvName.setText(entry.getValue().toString());
-                                    break;
-                                case "address":
-                                    tvAddress.setText(entry.getValue().toString());
-                                    break;
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                // document.getData();
+                                Map<String, Object> group = document.getData();
 
-                                case "number":
-                                    tvPhone.setText(entry.getValue().toString());
-                                    break;
+                                for (Map.Entry<String, Object> entry : group.entrySet()) {
+                                    Log.w(TAG,entry.getKey()+" => "+entry.getValue());
+                                    switch (entry.getKey()){
+                                        case "name":
+                                            tvName.setText(entry.getValue().toString());
+                                           // userProfileEntity.setName(entry.getValue().toString());
+                                            break;
+                                        case "address":
+                                            tvAddress.setText(entry.getValue().toString());
+                                          //  userProfileEntity.setAddress(entry.getValue().toString());
+                                            break;
 
-                                case "property_type":
-                                    propertyType.setText(entry.getValue().toString());
-                                    break;
+                                        case "number":
+                                            tvPhone.setText(entry.getValue().toString());
+                                            //userProfileEntity.setContact_nos(entry.getValue().toString());
+                                            break;
 
-                                case "property_vairent":
-                                    propertyVariant.setText(entry.getValue().toString());
-                                    break;
+                                        case "property_type":
+                                            propertyType.setText(entry.getValue().toString());
+                                            break;
+
+                                        case "property_vairent":
+                                            propertyVariant.setText(entry.getValue().toString());
+                                            break;
 
 
+                                    }
+
+                                }
+
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d(TAG, "No such document");
                             }
-
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
                         }
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-
+                });
+       /* UserRepository userRepository=new UserRepository(getActivity().getApplicationContext());
+        UserProfileEntity userProfile= userRepository.getUser();
+        tvName.setText(userProfile.getName());
+        tvEmail.setText(userProfile.getEmail_id());
+        tvAddress.setText(userProfile.getAddress());
+        tvPhone.setText(userProfile.getContact_nos());*/
         return root;
     }
 

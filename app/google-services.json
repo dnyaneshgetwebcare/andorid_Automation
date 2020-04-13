@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "798584862104-n3mmn94o3fb3dft9vgphvib413c6031m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iplug.automation",
+            "certificate_hash": "99ee4670150b89e58fdd4967cdbcb93260195740"
+          }
+        },
+        {
           "client_id": "798584862104-gbljiuqasbss3ej2fg15j7ctc243lihe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

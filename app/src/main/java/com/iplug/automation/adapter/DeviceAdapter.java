@@ -1,6 +1,8 @@
 package com.iplug.automation.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iplug.automation.R;
+import com.iplug.automation.ScheduleActivity;
 import com.iplug.automation.models.DevicesModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,7 +69,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             holder.progressBar.setVisibility(View.GONE);
             holder.rl_container.setVisibility(View.VISIBLE);
         }
-
+        holder.btn_schedual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSchedual(deviceList.get(position).getName());
+            }
+        });
        holder.device_status.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -114,6 +122,12 @@ public String getname(String type){
                     return R.mipmap.power_on;
 
         }
+
+    }
+    public  void getSchedual(String device_name){
+        Intent intent=new Intent(context, ScheduleActivity.class);
+        intent.putExtra("device_name",device_name);
+        context.startActivity(intent);
 
     }
 public int getDeviceType(String type,String status){
@@ -178,7 +192,7 @@ return R.drawable.ic_unknown;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView device_name,room_type;
-        public ImageView device_img;
+        public ImageView device_img,btn_schedual;
         public RelativeLayout relativeLayout;
         public ImageButton device_status;
         public ProgressBar progressBar;
@@ -188,6 +202,7 @@ return R.drawable.ic_unknown;
             this.device_name = (TextView) itemView.findViewById(R.id.deveice_name);
             this.room_type = (TextView) itemView.findViewById(R.id.room_type);
             this.device_status=(ImageButton) itemView.findViewById(R.id.btn_change);
+            this.btn_schedual=(ImageButton) itemView.findViewById(R.id.btn_schedual);
             this.device_img = (ImageView) itemView.findViewById(R.id.img_vw);
            this.progressBar=(ProgressBar) itemView.findViewById(R.id.prgress_bar_power);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relativeLayout);

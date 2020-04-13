@@ -1,6 +1,7 @@
 package com.iplug.automation.ui.devices;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iplug.automation.R;
+import com.iplug.automation.ScheduleActivity;
 import com.iplug.automation.holders.HeaderViewHolder;
 import com.iplug.automation.holders.ItemViewHolder;
 import com.iplug.automation.models.DevicesModel;
@@ -83,7 +85,12 @@ final class ExpandableRoomSection extends Section {
             itemHolder.progressBar.setVisibility(View.GONE);
             itemHolder.rl_container.setVisibility(View.VISIBLE);
         }
-
+        itemHolder.btn_schedual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSchedual(deviceList.get(position).getName());
+            }
+        });
         itemHolder.device_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +152,12 @@ final class ExpandableRoomSection extends Section {
     @Override
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
         return new HeaderViewHolder(view);
+    }
+    public  void getSchedual(String device_name){
+        Intent intent=new Intent(context, ScheduleActivity.class);
+        intent.putExtra("device_name",device_name);
+        context.startActivity(intent);
+
     }
     public String getname(String type){
         switch (type){
