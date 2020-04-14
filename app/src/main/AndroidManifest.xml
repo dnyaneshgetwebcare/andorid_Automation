@@ -9,16 +9,17 @@
         android:roundIcon="@mipmap/ic_iplug_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.iplug.automation.SignIn"></activity>
+        <activity android:name=".ScheduleActivity"></activity>
+        <activity android:name=".SignIn" />
         <activity
-            android:name="com.iplug.automation.LauncherActivity"
+            android:name=".LauncherActivity"
             android:label="@string/title_activity_launcher" />
-        <activity android:name="com.iplug.automation.UserDataActivity" />
+        <activity android:name=".UserDataActivity" />
         <activity
-            android:name="com.iplug.automation.ProfileActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name="com.iplug.automation.MainActivity" />
-        <activity android:name="com.iplug.automation.SplashScreen">
+            android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
