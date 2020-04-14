@@ -99,15 +99,15 @@ public class ProfileFragment extends Fragment {
                                 Map<String, Object> group = document.getData();
 
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
-                                    Log.w(TAG, entry.getKey() + " => " + entry.getValue());
-                                    switch (entry.getKey()) {
+                                    Log.w(TAG,entry.getKey()+" => "+entry.getValue());
+                                    switch (entry.getKey()){
                                         case "name":
                                             tvName.setText(entry.getValue().toString());
-                                            // userProfileEntity.setName(entry.getValue().toString());
+                                           // userProfileEntity.setName(entry.getValue().toString());
                                             break;
                                         case "address":
                                             tvAddress.setText(entry.getValue().toString());
-                                            //  userProfileEntity.setAddress(entry.getValue().toString());
+                                          //  userProfileEntity.setAddress(entry.getValue().toString());
                                             break;
 
                                         case "number":

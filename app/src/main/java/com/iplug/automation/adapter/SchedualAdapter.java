@@ -13,7 +13,7 @@ import com.iplug.automation.models.SchedualDetails;
 
 import java.util.List;
 
-public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHolder> {
+public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHolder>  {
     List<SchedualDetails> schedualList;
 
     public SchedualAdapter(List<SchedualDetails> schedualList) {
@@ -24,14 +24,14 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.scheduel_item, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.scheduel_item, parent, false);
         SchedualAdapter.ViewHolder viewHolder = new SchedualAdapter.ViewHolder(listItem);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SchedualDetails schedualDetails = schedualList.get(position);
+        SchedualDetails schedualDetails=schedualList.get(position);
         holder.time_tv.setText(schedualDetails.getTime());
         holder.duration_tv.setText(schedualDetails.getDuration());
         holder.status_tv.setText(schedualDetails.getStatus());
@@ -43,13 +43,12 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView duration_tv, time_tv, status_tv;
-
+        TextView duration_tv,time_tv,status_tv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.duration_tv = itemView.findViewById(R.id.sch_duration);
-            this.status_tv = itemView.findViewById(R.id.sch_status);
-            this.time_tv = itemView.findViewById(R.id.sch_time);
+            this.duration_tv=itemView.findViewById(R.id.sch_duration);
+            this.status_tv=itemView.findViewById(R.id.sch_status);
+            this.time_tv=itemView.findViewById(R.id.sch_time);
         }
     }
 }

@@ -13,7 +13,6 @@ public class UserRepository {
     private String DB_NAME = "db_task";
 
     private AppDatabase noteDatabase;
-
     public UserRepository(Context context) {
         noteDatabase = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).build();
     }
@@ -24,7 +23,7 @@ public class UserRepository {
                            String contact_nos,
                            String address) {
 
-        UserProfileEntity userProfileEntity = new UserProfileEntity();
+        UserProfileEntity  userProfileEntity= new UserProfileEntity();
         userProfileEntity.setName(name);
         userProfileEntity.setEmail_id(email);
         userProfileEntity.setContact_nos(contact_nos);
@@ -54,10 +53,9 @@ public class UserRepository {
             }
         }.execute();
     }
+    public UserProfileEntity getUser(){
 
-    public UserProfileEntity getUser() {
-
-        return noteDatabase.userProfile().getAll().get(0);
+       return noteDatabase.userProfile().getAll().get(0);
     }
 
 /*    public void deleteTask(final int id) {

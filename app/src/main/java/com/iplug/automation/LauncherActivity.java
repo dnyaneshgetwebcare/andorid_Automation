@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class LauncherActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-    String TAG = "LauncherActivity";
+    String TAG="LauncherActivity";
     List<CriticalDevices> criticalDevicesList;
     List<OtherDevices> otherDevicesList;
     @Override
@@ -45,18 +45,17 @@ public class LauncherActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        Bundle bunble = new Bundle();
-        bunble.putSerializable("key", null);
-        navController.setGraph(navController.getGraph(), bunble);
+        Bundle bunble=new Bundle();
+        bunble.putSerializable("key",null);
+        navController.setGraph(navController.getGraph(),bunble  );
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
-
-    public Object[] getCriticalData() {
-        Object[] return_array = new Object[2];
+    public Object[] getCriticalData(){
+        Object[] return_array=new Object[2];
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        otherDevicesList = new ArrayList<OtherDevices>();
+        otherDevicesList=new ArrayList<OtherDevices>();
         //  Log.d(TAG, "User Signed In " + user.getEmail());
         //Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         db.collection("users").document(user.getEmail()).collection("devices")
@@ -98,15 +97,15 @@ public class LauncherActivity extends AppCompatActivity {
 
                                             otherDevicesList.add(otherDevices);
                                         }else{*/
-                                        boolean new_device = true;
+                                        boolean new_device=true;
                                         for (OtherDevices p : otherDevicesList) {
                                             if (p.getRoomtype().equals(entry.getKey().toString())) {
-                                                p.setOnDevices(p.getOnDevices() + 1);
-                                                new_device = false;
+                                                p.setOnDevices(p.getOnDevices()+1);
+                                                new_device=false;
                                                 break;
                                             }
                                         }
-                                        if (new_device) {
+                                        if(new_device){
                                             otherDevicesList.add(otherDevices);
                                         }
                                         //}
@@ -124,7 +123,7 @@ public class LauncherActivity extends AppCompatActivity {
                             // Collections.sort(roomsModels,new RoomModelSort());
                             //getRealtimeListner(devicesModels.get(0).getId());
                             // progressRv.setVisibility(View.GONE);
-                            // criticalDevicesAdapter = new CriticalDeviceAdapter(criticalDevicesList,getContext());
+                           // criticalDevicesAdapter = new CriticalDeviceAdapter(criticalDevicesList,getContext());
                           /*  List<DevicesModel> devicelist=new ArrayList<DevicesModel>();
                             for(int i=0;i<roomsModels.size();i++){
                                 devicelist=new ArrayList<DevicesModel>();
@@ -137,11 +136,11 @@ public class LauncherActivity extends AppCompatActivity {
 
                                 sectionedAdapter.addSection(roomsModels.get(i).getRoomName(),new ExpandableRoomSection(roomsModels.get(i).getRoomName(),devicelist,clickListener,getContext(),roomsModels));
                             }*/
-                            // otherDeviceAdapter=new OtherDeviceAdapter(otherDevicesList,getContext());
-                            //   otherDeviceList.setAdapter(otherDeviceAdapter);
-                            //  criticalDevice.setAdapter(criticalDevicesAdapter);
-                            return_array[0] = criticalDevicesList;
-                            return_array[1] = otherDevicesList;
+                           // otherDeviceAdapter=new OtherDeviceAdapter(otherDevicesList,getContext());
+                         //   otherDeviceList.setAdapter(otherDeviceAdapter);
+                          //  criticalDevice.setAdapter(criticalDevicesAdapter);
+                            return_array[0]=criticalDevicesList;
+                            return_array[1]=otherDevicesList;
                             //return return_array;
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());

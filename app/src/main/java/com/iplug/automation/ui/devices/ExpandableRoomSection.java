@@ -153,10 +153,9 @@ final class ExpandableRoomSection extends Section {
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
         return new HeaderViewHolder(view);
     }
-
-    public void getSchedual(String device_name) {
-        Intent intent = new Intent(context, ScheduleActivity.class);
-        intent.putExtra("device_name", device_name);
+    public  void getSchedual(String device_name){
+        Intent intent=new Intent(context, ScheduleActivity.class);
+        intent.putExtra("device_name",device_name);
         context.startActivity(intent);
 
     }

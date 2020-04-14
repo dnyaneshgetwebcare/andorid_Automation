@@ -1,11 +1,6 @@
 package com.iplug.automation.models;
 
 public class SchedualDetails {
-    String device_id;
-    String time;
-    String status;
-    String duration;
-
     public String getDevice_id() {
         return device_id;
     }
@@ -37,5 +32,10 @@ public class SchedualDetails {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    String device_id;
+    String time;
+    String status;
+    String duration;
 
 }

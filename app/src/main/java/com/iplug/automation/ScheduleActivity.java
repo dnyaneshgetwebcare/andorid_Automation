@@ -42,15 +42,14 @@ public class ScheduleActivity extends AppCompatActivity {
     TextView emptyId;
     String device_name;
     FirebaseAuth mAuth;
-    String TAG = "";
-
+    String TAG="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         ButterKnife.bind(this);
         schedualDetails = new ArrayList<SchedualDetails>();
-        device_name = getIntent().getStringExtra("device_name");
+        device_name= getIntent().getStringExtra("device_name");
         mAuth = FirebaseAuth.getInstance();
         rvScheduel.setHasFixedSize(true);
         rvScheduel.setLayoutManager(new LinearLayoutManager(this));
@@ -63,14 +62,14 @@ public class ScheduleActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        // DocumentSnapshot documentSnapshot=task.getResult();
+                      // DocumentSnapshot documentSnapshot=task.getResult();
 
                         Map<String, Object> group = task.getResult().getData();
-                        if (group != null) {
+                        if(group!=null) {
                             for (Map.Entry<String, Object> entry : group.entrySet()) {
                                 Log.w(TAG, entry.getKey() + " value :: " + entry.getValue());
-                                String[] schedule = entry.getValue().toString().split("-");
-                                SchedualDetails schedualDetail = new SchedualDetails();
+                                String[] schedule=entry.getValue().toString().split("-");
+                                SchedualDetails schedualDetail=new SchedualDetails();
                                 schedualDetail.setStatus(schedule[0]);
                                 schedualDetail.setDuration(schedule[1]);
                                 schedualDetail.setTime(schedule[2]);
@@ -81,10 +80,10 @@ public class ScheduleActivity extends AppCompatActivity {
                         if (schedualDetails.size() == 0) {
                             rvScheduel.setVisibility(View.GONE);
                             emptyId.setVisibility(View.VISIBLE);
-                        } else {
+                        }else{
                             rvScheduel.setVisibility(View.VISIBLE);
                             emptyId.setVisibility(View.GONE);
-                            SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails);
+                            SchedualAdapter schedualAdapter=new SchedualAdapter(schedualDetails);
                             rvScheduel.setAdapter(schedualAdapter);
                         }
 

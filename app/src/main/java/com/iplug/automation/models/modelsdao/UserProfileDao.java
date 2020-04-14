@@ -9,19 +9,15 @@ import androidx.room.Update;
 import com.iplug.automation.models.UserProfileEntity;
 
 import java.util.List;
-
 @Dao
 public interface UserProfileDao {
 
     @Query("select * from  user_profile")
     List<UserProfileEntity> getAll();
-
     @Insert
     void insertuser(UserProfileEntity user);
-
     @Update
     void updateUser(UserProfileEntity user);
-
     @Delete
     void deleteUser(UserProfileEntity user);
 }

@@ -12,16 +12,16 @@ public class UserProfileEntity implements Serializable {
     @NonNull
     @PrimaryKey
     String email_id;
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name="name")
     String name;
-    @ColumnInfo(name = "address")
+    @ColumnInfo(name="address")
     String address;
-    @ColumnInfo(name = "contact_nos")
+    @ColumnInfo(name="contact_nos")
     String contact_nos;
-    @ColumnInfo(name = "property_type")
+    @ColumnInfo(name="property_type")
     String property_type;
-    @ColumnInfo(name = "property_vairent")
-    String property_vairent;
+    @ColumnInfo(name="property_vairent")
+     String property_vairent;
 
     public String getProperty_type() {
         return property_type;

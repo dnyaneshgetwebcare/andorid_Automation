@@ -14,51 +14,50 @@
         android:padding="@dimen/activity_horizontal_margin"
         android:text="roomdetails"
         app:layout_constraintTop_toTopOf="parent"></TextView>
-
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:weightSum="10"
-        app:layout_constraintTop_toBottomOf="@id/device_name">
+        app:layout_constraintTop_toBottomOf="@id/device_name"
+        android:orientation="horizontal"
+    >
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="5"
             android:padding="10dp"
+            android:layout_height="wrap_content"
             android:text="Duration"></TextView>
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="10dp"
+            android:layout_height="wrap_content"
             android:text="status"></TextView>
-
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:padding="10dp"
+            android:layout_height="wrap_content"
             android:text="Time"></TextView>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_scheduel"
-        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
 
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        app:layout_constraintTop_toBottomOf="@id/title"></androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/empty_id"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        ></androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/empty_id"
         android:text="No Item found"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:padding="10dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/title"></TextView>
+        android:layout_height="wrap_content"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
