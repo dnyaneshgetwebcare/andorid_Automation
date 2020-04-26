@@ -5,4 +5,5 @@
     <dimen name="list_text_size">14sp</dimen>
     <dimen name="header_size">16sp</dimen>
     <dimen name="dashboard_header_size">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

@@ -1,33 +1,27 @@
 package com.iplug.automation;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.iplug.automation.adapter.SchedualAdapter;
 import com.iplug.automation.models.SchedualDetails;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ScheduleActivity extends AppCompatActivity {
     String[] weekarray = {"all", "sun", "mon", "tue", "wed", "thus", "fri", "sat"};
@@ -40,24 +34,47 @@ public class ScheduleActivity extends AppCompatActivity {
     RecyclerView rvScheduel;
     @BindView(R.id.empty_id)
     TextView emptyId;
-    String device_name;
+    String device_name,document_id,device_id;
     FirebaseAuth mAuth;
-    String TAG="";
+    String TAG = "";
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.add_schedual)
+    FloatingActionButton addSchedual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.schedual_main);
         ButterKnife.bind(this);
         schedualDetails = new ArrayList<SchedualDetails>();
-        device_name= getIntent().getStringExtra("device_name");
+        String schedual_string = getIntent().getStringExtra("schedual_string");
+         document_id = getIntent().getStringExtra("document_id");
+        device_id = getIntent().getStringExtra("device_id");
+        device_name = getIntent().getStringExtra("device_name");
         mAuth = FirebaseAuth.getInstance();
         rvScheduel.setHasFixedSize(true);
         rvScheduel.setLayoutManager(new LinearLayoutManager(this));
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (schedual_string != null) {
+            String[] schedule_array = schedual_string.split(";");
+
+            for (int i = 0; i < schedule_array.length; i++) {
+                String[] schedule = schedule_array[i].split("-");
+                SchedualDetails schedualDetail = new SchedualDetails();
+                schedualDetail.setStatus(schedule[0]);
+                schedualDetail.setDuration(schedule[1]);
+                schedualDetail.setTime(schedule[2]);
+                schedualDetail.setDevice_id(device_name);
+                schedualDetails.add(schedualDetail);
+            }
+
+        }
+
+       /*  FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
         Toast.makeText(this, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
-        db.collection("users").document(user.getEmail()).collection("schedules").document("device1A4:CF:12:25:D5:78")
+       db.collection("users").document(user.getEmail()).collection("schedules").document("device1A4:CF:12:25:D5:78")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -88,7 +105,7 @@ public class ScheduleActivity extends AppCompatActivity {
                         }
 
                     }
-                });
+                });*/
         //RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         // recyclerView.setLayoutManager(mLayoutManager);
 
@@ -96,7 +113,21 @@ public class ScheduleActivity extends AppCompatActivity {
         if (schedualDetails.size() == 0) {
             rvScheduel.setVisibility(View.GONE);
             emptyId.setVisibility(View.VISIBLE);
+        } else {
+            rvScheduel.setVisibility(View.VISIBLE);
+            emptyId.setVisibility(View.GONE);
+            SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails);
+            rvScheduel.setAdapter(schedualAdapter);
         }
 
+    }
+
+    @OnClick(R.id.add_schedual)
+    public void onViewClicked() {
+        Intent intent=new Intent(ScheduleActivity.this,AddSchedual.class);
+        intent.putExtra("document_id",document_id);
+        intent.putExtra("device_d",device_id);
+        intent.putExtra("device_name",device_name);
+        startActivity(intent);
     }
 }

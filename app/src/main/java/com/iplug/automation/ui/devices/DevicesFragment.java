@@ -112,6 +112,7 @@ public class DevicesFragment extends Fragment implements ExpandableRoomSection.C
                                 //Log.d(TAG, reference.getId() + " => " + reference.getPath());
                                 DevicesModel devicesModel = null;
                                 RoomsModel roomM=null;
+                                String document_id=document.getId();
                                 for (Map.Entry<String, Object> entry : group.entrySet()) {
                                     try{
                                         if (devicesModel == null) {
@@ -127,9 +128,21 @@ public class DevicesFragment extends Fragment implements ExpandableRoomSection.C
                                             roomM.setRoomName(entry.getValue().toString());
                                             if(!roomsModels.contains(entry.getValue().toString())){
                                                 roomM.setOff_count(0);
-                                                roomM.setOff_count(0);
+                                                //roomM.setOff_count(0);
                                                 roomsModels.add(roomM);
                                             }
+                                        }
+                                    }else if(entry.getKey().equalsIgnoreCase("schedule")) {
+                                        // devicesModel.setName(entry.getKey());
+                                        if(devicesModel!=null) {
+                                            devicesModel.setSchedual_string(entry.getValue().toString());
+                                            //roomM=new RoomsModel();
+                                            //roomM.setRoomName(entry.getValue().toString());
+                                            /*if(!roomsModels.contains(entry.getValue().toString())){
+                                                roomM.setOff_count(0);
+                                               // roomM.setOff_count(0);
+                                                roomsModels.add(roomM);
+                                            }*/
                                         }
                                     }else{
                                         // devicesModel = new DevicesModel();
@@ -148,6 +161,7 @@ public class DevicesFragment extends Fragment implements ExpandableRoomSection.C
                                     }/*else {
                                         devicesModels.add(devicesModel);
                                     }*/
+                                    devicesModel.setDocument_id(document_id);
                                     devicesModels.add(devicesModel);
                                 }
 
