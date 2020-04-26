@@ -5,6 +5,7 @@ public class RoomsModel {
     int on_count;
     int off_count;
 
+
     public String getRoomName() {
         return RoomName;
     }

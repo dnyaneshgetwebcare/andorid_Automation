@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_iplug_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScheduleActivity"></activity>
+        <activity
+            android:name=".AllSchedual"
+            android:label="@string/title_activity_all_schedual"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AddSchedual" />
+        <activity android:name=".ScheduleActivity" />
         <activity android:name=".SignIn" />
         <activity
             android:name=".LauncherActivity"
