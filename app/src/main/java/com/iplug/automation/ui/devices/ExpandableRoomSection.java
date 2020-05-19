@@ -88,7 +88,7 @@ final class ExpandableRoomSection extends Section {
         itemHolder.btn_schedual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSchedual(deviceList.get(position).getSchedual_string(),deviceList.get(position).getDocument_id(),getname(deviceList.get(position).getName()),deviceList.get(position).getId());
+                getSchedual(deviceList.get(position).getSchedual_string(),deviceList.get(position).getDocument_id(),getname(deviceList.get(position).getName()),deviceList.get(position).getId(),deviceList.get(position).getType());
             }
         });
         itemHolder.device_status.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +153,13 @@ final class ExpandableRoomSection extends Section {
     public RecyclerView.ViewHolder getHeaderViewHolder(final View view) {
         return new HeaderViewHolder(view);
     }
-    public  void getSchedual(String schedual_string,String document_id,String device_name,String device_id){
+    public  void getSchedual(String schedual_string,String document_id,String device_name,String device_id,String room_type){
         Intent intent=new Intent(context, ScheduleActivity.class);
         intent.putExtra("schedual_string",schedual_string);
         intent.putExtra("device_name",device_name);
         intent.putExtra("document_id",document_id);
         intent.putExtra("device_id",device_id);
+        intent.putExtra("room_type",room_type);
         context.startActivity(intent);
 
     }

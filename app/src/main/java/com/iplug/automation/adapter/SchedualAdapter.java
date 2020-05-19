@@ -3,6 +3,7 @@ package com.iplug.automation.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,10 @@ import java.util.List;
 
 public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHolder>  {
     List<SchedualDetails> schedualList;
-
-    public SchedualAdapter(List<SchedualDetails> schedualList) {
+    String[] sch_array;
+    public SchedualAdapter(List<SchedualDetails> schedualList,String[] string_sch) {
         this.schedualList = schedualList;
+        this.sch_array=string_sch;
     }
 
     @NonNull
@@ -35,6 +37,16 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
         holder.time_tv.setText(schedualDetails.getTime());
         holder.duration_tv.setText(schedualDetails.getDuration());
         holder.status_tv.setText(schedualDetails.getStatus());
+        holder.deletesch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteSchdual(schedualDetails.getSch_pos());
+            }
+        });
+    }
+
+    private void deleteSchdual(int sch_pos) {
+
     }
 
     @Override
@@ -44,11 +56,13 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView duration_tv,time_tv,status_tv;
+        ImageButton deletesch;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.duration_tv=itemView.findViewById(R.id.sch_duration);
             this.status_tv=itemView.findViewById(R.id.sch_status);
             this.time_tv=itemView.findViewById(R.id.sch_time);
+            this.deletesch=itemView.findViewById(R.id.delete_sch);
         }
     }
 }
