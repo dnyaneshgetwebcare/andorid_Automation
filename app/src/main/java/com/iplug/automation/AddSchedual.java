@@ -63,7 +63,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
     FirebaseAuth mAuth;
     //ArrayList<CheckBox> checkBoxes;
     private int  mHour, mMinute;
-    String device_id,document_id,device_name;
+    String device_id,document_id,device_name,room_type;
     String TAG="AddSchedual";
     Context context;
     @Override
@@ -78,9 +78,11 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         device_id=getIntent().getStringExtra("device_id");
         device_name=getIntent().getStringExtra("device_name");
         document_id=getIntent().getStringExtra("document_id");
+        room_type=getIntent().getStringExtra("room_type");
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         schTime.setText(mHour + ":" + mMinute);
+        deviceDetails.setText(room_type+"->"+device_name);
     }
 
     @OnClick({R.id.sch_time, R.id.add_schedual})

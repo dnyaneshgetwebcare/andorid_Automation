@@ -37,5 +37,13 @@ public class SchedualDetails {
     String time;
     String status;
     String duration;
+    int sch_pos;
 
+    public int getSch_pos() {
+        return sch_pos;
+    }
+
+    public void setSch_pos(int sch_pos) {
+        this.sch_pos = sch_pos;
+    }
 }

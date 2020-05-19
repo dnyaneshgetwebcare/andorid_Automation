@@ -25,4 +25,10 @@
         android:id="@+id/sch_time"
         android:padding="@dimen/activity_horizontal_margin"
         android:layout_height="wrap_content"></TextView>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:background="@null"
+        android:id="@+id/delete_sch"
+        android:src="@mipmap/ac_off"
+        android:layout_height="match_parent"></ImageButton>
 </LinearLayout>

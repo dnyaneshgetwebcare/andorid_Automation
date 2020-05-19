@@ -34,13 +34,14 @@ public class ScheduleActivity extends AppCompatActivity {
     RecyclerView rvScheduel;
     @BindView(R.id.empty_id)
     TextView emptyId;
-    String device_name,document_id,device_id;
+    String device_name,document_id,device_id,room_type;
     FirebaseAuth mAuth;
     String TAG = "";
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+  /*  @BindView(R.id.toolbar)
+    Toolbar toolbar;*/
     @BindView(R.id.add_schedual)
     FloatingActionButton addSchedual;
+    String[] schedule_array=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +53,13 @@ public class ScheduleActivity extends AppCompatActivity {
          document_id = getIntent().getStringExtra("document_id");
         device_id = getIntent().getStringExtra("device_id");
         device_name = getIntent().getStringExtra("device_name");
+        room_type = getIntent().getStringExtra("room_type");
+        deviceName.setText(room_type+ "->"+ device_name);
         mAuth = FirebaseAuth.getInstance();
         rvScheduel.setHasFixedSize(true);
         rvScheduel.setLayoutManager(new LinearLayoutManager(this));
         if (schedual_string != null) {
-            String[] schedule_array = schedual_string.split(";");
+            schedule_array = schedual_string.split(";");
 
             for (int i = 0; i < schedule_array.length; i++) {
                 String[] schedule = schedule_array[i].split("-");
@@ -64,6 +67,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 schedualDetail.setStatus(schedule[0]);
                 schedualDetail.setDuration(schedule[1]);
                 schedualDetail.setTime(schedule[2]);
+                schedualDetail.setSch_pos(i);
                 schedualDetail.setDevice_id(device_name);
                 schedualDetails.add(schedualDetail);
             }
@@ -116,7 +120,7 @@ public class ScheduleActivity extends AppCompatActivity {
         } else {
             rvScheduel.setVisibility(View.VISIBLE);
             emptyId.setVisibility(View.GONE);
-            SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails);
+            SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails,schedule_array);
             rvScheduel.setAdapter(schedualAdapter);
         }
 
@@ -128,6 +132,7 @@ public class ScheduleActivity extends AppCompatActivity {
         intent.putExtra("document_id",document_id);
         intent.putExtra("device_d",device_id);
         intent.putExtra("device_name",device_name);
+        intent.putExtra("room_type",room_type);
         startActivity(intent);
     }
 }
