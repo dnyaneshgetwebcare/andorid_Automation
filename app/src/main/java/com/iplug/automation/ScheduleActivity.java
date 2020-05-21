@@ -47,6 +47,7 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedual_main);
+        setTitle("Routines");
         ButterKnife.bind(this);
         schedualDetails = new ArrayList<SchedualDetails>();
         String schedual_string = getIntent().getStringExtra("schedual_string");

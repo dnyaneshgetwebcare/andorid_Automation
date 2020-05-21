@@ -9,30 +9,84 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
+        android:padding="15dp"
         android:layout_height="wrap_content">
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="device Details"
-            android:padding="10dp"
-            android:id="@+id/device_details"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Device"
+                android:textColor="@color/colorPrimary"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:text="device Details"
+                android:padding="10dp"
+                android:gravity="end"
+                android:id="@+id/device_details"
+                android:textColor="@color/button_color"
+                android:layout_height="wrap_content"></TextView>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
-            <ToggleButton
+
+            <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Device Action"
+                android:textColor="@color/colorPrimary"></TextView>
+
+            <ToggleButton
                 android:id="@+id/device_status"
-                android:layout_height="wrap_content"></ToggleButton>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:checked="true"
+                android:textOff="OFF"
+                android:textOn="ON"></ToggleButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Choose a time for this routine *"
+                android:textColor="@color/colorPrimary"></TextView>
             <TextView
                 android:layout_width="match_parent"
-                android:padding="15dp"
-                android:text="time"
+                android:background="@color/cream_color"
+                android:drawableRight="@mipmap/scheduler_on_icon"
                 android:id="@+id/sch_time"
-                android:textAlignment="viewEnd"
-                android:layout_gravity="end"
+                android:gravity="left|center"
+                android:padding="1dp"
+                android:text="00:00"
+                android:textColor="@color/button_color"
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Choose which days it should repeat *"
+            android:textColor="@color/colorPrimary"></TextView>
       <CheckBox
           android:layout_width="match_parent"
           android:text="All"
@@ -79,6 +133,7 @@
     android:layout_width="match_parent"
     android:text="Schedual"
     android:id="@+id/add_schedual"
+    android:background="@color/button_color"
     app:layout_constraintBottom_toBottomOf="parent"
     android:layout_height="wrap_content"></Button>
 

@@ -70,6 +70,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedual);
+        setTitle("Add Routines");
         ButterKnife.bind(this);
         context=this;
         weekAll.setOnCheckedChangeListener(this);
