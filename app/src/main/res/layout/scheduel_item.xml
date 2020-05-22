@@ -31,6 +31,6 @@
         android:background="@null"
         android:id="@+id/delete_sch"
         android:src="@mipmap/ac_off"
-        android:visibility="gone"
+
         android:layout_height="match_parent"></ImageButton>
 </LinearLayout>

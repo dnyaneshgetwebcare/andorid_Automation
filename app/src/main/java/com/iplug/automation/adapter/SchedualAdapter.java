@@ -17,9 +17,11 @@ import java.util.List;
 public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHolder>  {
     List<SchedualDetails> schedualList;
     String[] sch_array;
-    public SchedualAdapter(List<SchedualDetails> schedualList,String[] string_sch) {
+    DeleteItem deleteItem;
+    public SchedualAdapter(List<SchedualDetails> schedualList,String[] string_sch,DeleteItem deleteItem) {
         this.schedualList = schedualList;
         this.sch_array=string_sch;
+        this.deleteItem=deleteItem;
     }
 
     @NonNull
@@ -46,7 +48,14 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
     }
 
     private void deleteSchdual(int sch_pos) {
-
+        schedualList.remove(sch_pos);
+        notifyItemRemoved(sch_pos);
+        notifyItemRangeChanged(sch_pos, schedualList.size());
+        String check_duration=schedualList.get(sch_pos).getDuration();
+        String deviceAction=schedualList.get(sch_pos).getStatus();
+        String deviceId=schedualList.get(sch_pos).getDevice_id();
+        String time=schedualList.get(sch_pos).getTime();
+        deleteItem.deleteItem(deviceAction+"-"+check_duration+"-"+time+";",deviceAction,deviceId,time);
     }
 
     @Override
@@ -64,5 +73,8 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
             this.time_tv=itemView.findViewById(R.id.sch_time);
             this.deletesch=itemView.findViewById(R.id.delete_sch);
         }
+    }
+    public  interface DeleteItem{
+        void deleteItem(String check_duration,String deviceAction,String deviceId,String time);
     }
 }

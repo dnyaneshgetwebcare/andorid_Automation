@@ -1,7 +1,9 @@
 package com.iplug.automation;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -160,6 +162,11 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                 if(addnew){
                     updateSchedual(check_duration,documentReference);
                 }
+                Toast.makeText(context,"Succefully added.",Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",check_duration);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
         });
          db.collection("schedules").document("add").update("deviceAction",deviceAction,
