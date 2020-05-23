@@ -207,7 +207,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         if (requestCode == INTENT_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");
-                Toast.makeText(context,"Added Succesfully",Toast.LENGTH_LONG).show();
+              //  Toast.makeText(context,"Added Succesfully",Toast.LENGTH_LONG).show();
                 if (result != null) {
                     schedule_array = result.split(";");
 
