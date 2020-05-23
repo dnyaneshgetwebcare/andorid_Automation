@@ -95,7 +95,7 @@ public class DevicesFragment extends Fragment implements ExpandableRoomSection.C
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         db.collection("users").document(user.getEmail()).collection("devices")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

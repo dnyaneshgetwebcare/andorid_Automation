@@ -132,7 +132,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                          dev_status="ON";
                     }
 
-                    submit_data(dev_status+"-"+check_duration+"-"+time+";",dev_status,device_id,time);
+                    submit_data(dev_status+"-"+check_duration+"-"+time+";",dev_status,device_id,check_duration+"-"+time);
                 }else{
                     Toast.makeText(AddSchedual.this,"Please select Duration",Toast.LENGTH_LONG);
                 }
@@ -145,7 +145,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         DocumentReference documentReference=db.collection("users").document(user.getEmail()).collection("devices").document(document_id);
          documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

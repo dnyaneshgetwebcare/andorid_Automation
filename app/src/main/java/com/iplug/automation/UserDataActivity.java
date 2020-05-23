@@ -61,7 +61,7 @@ Context context;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(UserDataActivity.this, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(UserDataActivity.this, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         db.collection("users").document(user.getEmail()).collection("devices")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

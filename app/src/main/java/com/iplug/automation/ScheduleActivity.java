@@ -60,7 +60,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
     int INTENT_RESULT=1;
     Context context;
     SchedualAdapter schedualAdapter;
-
+    int total_sch=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(this, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
             db.collection("users").document(user.getEmail()).collection("devices").document(document_id)
                 .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -117,6 +117,9 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                                                 for (int i = 0; i < schedule_array.length; i++) {
                                                     String[] schedule = schedule_array[i].split("-");
                                                     SchedualDetails schedualDetail = new SchedualDetails();
+                                                    if(schedule.length<2){
+                                                        continue;
+                                                    }
                                                     schedualDetail.setStatus(schedule[0]);
                                                     schedualDetail.setDuration(schedule[1]);
                                                     schedualDetail.setTime(schedule[2]);
@@ -130,6 +133,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                                                 } else {
                                                     rvScheduel.setVisibility(View.VISIBLE);
                                                     emptyId.setVisibility(View.GONE);
+                                                    total_sch= schedualDetails.size();
                                                     SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails, schedule_array, ScheduleActivity.this);
                                                     rvScheduel.setAdapter(schedualAdapter);
                                                 }
@@ -163,7 +167,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-        Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+       //Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
         DocumentReference documentReference=db.collection("users").document(user.getEmail()).collection("devices").document(document_id);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -203,7 +207,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         if (requestCode == INTENT_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");
-                Toast.makeText(context,result,Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Added Succesfully",Toast.LENGTH_LONG).show();
                 if (result != null) {
                     schedule_array = result.split(";");
 
@@ -225,6 +229,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                     }else {
                         schedualAdapter.notifyDataSetChanged();
                     }
+                    total_sch=schedualDetails.size();
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -235,16 +240,25 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
 
     @OnClick(R.id.add_schedual)
     public void onViewClicked() {
-        Intent intent=new Intent(ScheduleActivity.this,AddSchedual.class);
-        intent.putExtra("document_id",document_id);
-        intent.putExtra("device_d",device_id);
-        intent.putExtra("device_name",device_name);
-        intent.putExtra("room_type",room_type);
-        startActivityForResult(intent,INTENT_RESULT);
+        if(total_sch<6) {
+            Intent intent = new Intent(ScheduleActivity.this, AddSchedual.class);
+            intent.putExtra("document_id", document_id);
+            intent.putExtra("device_id", device_id);
+            intent.putExtra("device_name", device_name);
+            intent.putExtra("room_type", room_type);
+            startActivityForResult(intent, INTENT_RESULT);
+        }else{
+            Toast.makeText(context, "Max 6 Schedual allowed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public void deleteItem(String check_duration, String deviceAction, String deviceId, String time) {
+    public void deleteItem(String check_duration, String deviceAction, String deviceId, String time,int list_size) {
         submit_data(check_duration,deviceAction,deviceId,time);
+        total_sch=list_size;
+        if(list_size==0){
+            rvScheduel.setVisibility(View.GONE);
+            emptyId.setVisibility(View.VISIBLE);
+        }
     }
 }
