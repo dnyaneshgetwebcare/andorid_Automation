@@ -105,7 +105,11 @@ final class ExpandableRoomSection extends Section {
         itemHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Toast.makeText(view.getContext(),"click on item: "+myListData.getId(),Toast.LENGTH_LONG).show();
+                try {
+                    changeStatus(deviceList.get(position).getId(), deviceList.get(position).getStatus());
+                }catch (Exception ex){
+                    Log.w("Status",ex.getMessage());
+                }
             }
         });
     }
