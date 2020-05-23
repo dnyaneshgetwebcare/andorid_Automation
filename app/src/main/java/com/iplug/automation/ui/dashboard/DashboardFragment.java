@@ -91,7 +91,7 @@ OtherDeviceAdapter otherDeviceAdapter;
                                             criticalDevices.setType(entry.getValue().toString());
 
                                         }
-                                    } else {
+                                    } else if(!entry.getKey().equalsIgnoreCase("schedule")){
                                         // criticalDevices = new CriticalDevices();
                                         criticalDevices.setName(entry.getKey());
                                         criticalDevices.setId(entry.getValue().toString());
