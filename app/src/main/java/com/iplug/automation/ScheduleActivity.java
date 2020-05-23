@@ -61,6 +61,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
     Context context;
     SchedualAdapter schedualAdapter;
     int total_sch=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +135,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                                                     rvScheduel.setVisibility(View.VISIBLE);
                                                     emptyId.setVisibility(View.GONE);
                                                     total_sch= schedualDetails.size();
-                                                    SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails, schedule_array, ScheduleActivity.this);
+                                                    SchedualAdapter schedualAdapter = new SchedualAdapter(schedualDetails, schedule_array, ScheduleActivity.this,context);
                                                     rvScheduel.setAdapter(schedualAdapter);
                                                 }
                                             }
@@ -157,7 +158,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         } else {
             rvScheduel.setVisibility(View.VISIBLE);
             emptyId.setVisibility(View.GONE);
-             schedualAdapter = new SchedualAdapter(schedualDetails,schedule_array,this);
+             schedualAdapter = new SchedualAdapter(schedualDetails,schedule_array,this,context);
             rvScheduel.setAdapter(schedualAdapter);
         }
 
@@ -221,10 +222,11 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                         schedualDetail.setDevice_id(device_name);
                         schedualDetails.add(schedualDetail);
                    // }
+                    rvScheduel.setVisibility(View.VISIBLE);
+                    emptyId.setVisibility(View.GONE);
                     if(schedualAdapter==null){
-                        rvScheduel.setVisibility(View.VISIBLE);
-                        emptyId.setVisibility(View.GONE);
-                        schedualAdapter = new SchedualAdapter(schedualDetails,schedule_array,this);
+
+                        schedualAdapter = new SchedualAdapter(schedualDetails,schedule_array,this,context);
                         rvScheduel.setAdapter(schedualAdapter);
                     }else {
                         schedualAdapter.notifyDataSetChanged();

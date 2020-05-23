@@ -1,14 +1,19 @@
 package com.iplug.automation.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iplug.automation.MainActivity;
 import com.iplug.automation.R;
 import com.iplug.automation.models.SchedualDetails;
 
@@ -18,10 +23,13 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
     List<SchedualDetails> schedualList;
     String[] sch_array;
     DeleteItem deleteItem;
-    public SchedualAdapter(List<SchedualDetails> schedualList,String[] string_sch,DeleteItem deleteItem) {
+    Context context;
+
+    public SchedualAdapter(List<SchedualDetails> schedualList,String[] string_sch,DeleteItem deleteItem,Context context) {
         this.schedualList = schedualList;
         this.sch_array=string_sch;
         this.deleteItem=deleteItem;
+        this.context=context;
     }
 
     @NonNull
@@ -42,12 +50,23 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
         holder.deletesch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteSchdual(position);
+                new AlertDialog.Builder(context)
+                      //  .setTitle("Title")
+                        .setMessage("Are you sure want to Delete?")
+                       // .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                deleteSchdual(position);
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+
             }
         });
     }
 
     private void deleteSchdual(int sch_pos) {
+
         String check_duration=schedualList.get(sch_pos).getDuration();
         String deviceAction=schedualList.get(sch_pos).getStatus();
         String deviceId=schedualList.get(sch_pos).getDevice_id();

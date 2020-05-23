@@ -84,7 +84,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         room_type=getIntent().getStringExtra("room_type");
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        schTime.setText(mHour + ":" + mMinute);
+        schTime.setText(String.format("%02d", mHour) + ":" + String.format("%02d", mMinute));
         deviceDetails.setText(room_type+"->"+device_name);
     }
 
@@ -118,7 +118,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                                // String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
 
 
-                                schTime.setText(hourOfDay + ":" + minute);
+                                schTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
