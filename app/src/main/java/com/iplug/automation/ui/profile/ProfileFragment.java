@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment {
                                             propertyType.setText(entry.getValue().toString());
                                             break;
 
-                                        case "property_vairent":
+                                        case "property_variant":
                                             propertyVariant.setText(entry.getValue().toString());
                                             break;
 

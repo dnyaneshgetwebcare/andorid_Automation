@@ -52,7 +52,7 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
                       //  .setTitle("Title")
-                        .setMessage("Are you sure want to Delete?")
+                        .setMessage("Are you sure want to delete?")
                        // .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

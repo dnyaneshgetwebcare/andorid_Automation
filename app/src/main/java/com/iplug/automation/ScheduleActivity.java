@@ -43,6 +43,8 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
     List<SchedualDetails> schedualDetails;
     @BindView(R.id.device_name)
     TextView deviceName;
+    @BindView(R.id.room_name)
+    TextView roomName;
     @BindView(R.id.title)
     LinearLayout title;
     @BindView(R.id.rv_scheduel)
@@ -75,7 +77,9 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         device_name = getIntent().getStringExtra("device_name");
         room_type = getIntent().getStringExtra("room_type");
         context=this;
-        deviceName.setText(room_type+ "->"+ device_name);
+        roomName.setText(room_type);
+        // deviceName.setText(room_type+ "->"+ device_name);
+        deviceName.setText(device_name);
         mAuth = FirebaseAuth.getInstance();
         rvScheduel.setHasFixedSize(true);
         rvScheduel.setLayoutManager(new LinearLayoutManager(this));
@@ -250,7 +254,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
             intent.putExtra("room_type", room_type);
             startActivityForResult(intent, INTENT_RESULT);
         }else{
-            Toast.makeText(context, "Max 6 Schedual allowed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, " Sorry! Maximum 6 routines can be added for each device", Toast.LENGTH_SHORT).show();
         }
     }
 

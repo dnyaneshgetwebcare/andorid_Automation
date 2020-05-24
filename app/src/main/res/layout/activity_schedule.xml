@@ -7,14 +7,25 @@
     tools:context=".ScheduleActivity">
 
     <TextView
+        android:id="@+id/room_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/label_back"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:text="Living Room"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+    <TextView
         android:id="@+id/device_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/activity_horizontal_margin"
-        android:text="roomdetails"
-        android:textColor="@color/button_color"
+        android:layout_marginTop="2dp"
+        android:text="Device Details"
         android:textSize="20dp"
+        android:textColor="@color/device_color"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <LinearLayout
@@ -28,7 +39,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4.5"
             android:padding="10dp"
             android:text="Routine Days"
             android:textColor="@color/colorPrimary"></TextView>
@@ -46,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:padding="10dp"
-            android:text="Routine Time"
+            android:text="Time"
             android:textColor="@color/colorPrimary"></TextView>
     </LinearLayout>
 

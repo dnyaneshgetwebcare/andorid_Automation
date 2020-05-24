@@ -12,6 +12,7 @@
     <color name="trans_black">#99000000</color>
     <color name="button_color">#5991F0</color>
     <color name="cream_color">#F3FDFD</color>
+    <color name="device_color">#0E6655</color>
 
     <!--   <color name="colorAccent">#F3EDED</color>
      <color name="colorPrimary">#CC000000</color>

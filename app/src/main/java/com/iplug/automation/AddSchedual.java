@@ -85,7 +85,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         schTime.setText(String.format("%02d", mHour) + ":" + String.format("%02d", mMinute));
-        deviceDetails.setText(room_type+"->"+device_name);
+        deviceDetails.setText(device_name + " [" + room_type + "]");
     }
 
     @OnClick({R.id.sch_time, R.id.add_schedual})
@@ -162,7 +162,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                 if(addnew){
                     updateSchedual(check_duration,documentReference);
                 }
-                Toast.makeText(context,"Succefully added.",Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Added Successfully", Toast.LENGTH_LONG).show();
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result",check_duration);
                 setResult(Activity.RESULT_OK,returnIntent);

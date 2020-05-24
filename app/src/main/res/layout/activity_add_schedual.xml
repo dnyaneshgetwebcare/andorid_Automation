@@ -30,7 +30,8 @@
                 android:padding="10dp"
                 android:gravity="end"
                 android:id="@+id/device_details"
-                android:textColor="@color/button_color"
+                android:textColor="@color/device_color"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
@@ -77,6 +78,7 @@
                 android:gravity="left|center"
                 android:padding="1dp"
                 android:text="00:00"
+                android:textStyle="bold"
                 android:textColor="@color/button_color"
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
@@ -89,7 +91,8 @@
             android:textColor="@color/colorPrimary"></TextView>
       <CheckBox
           android:layout_width="match_parent"
-          android:text="All"
+          android:text="Everyday"
+          android:textStyle="bold"
           android:id="@+id/week_all"
           android:layout_height="wrap_content"></CheckBox>
         <CheckBox
@@ -131,7 +134,7 @@
     </LinearLayout>
 <Button
     android:layout_width="match_parent"
-    android:text="Schedual"
+    android:text="Add"
     android:id="@+id/add_schedual"
     android:background="@color/button_color"
     app:layout_constraintBottom_toBottomOf="parent"

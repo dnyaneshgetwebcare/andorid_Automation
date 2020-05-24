@@ -4,5 +4,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="devices">Devices</string>
     <string name="profile">Profile</string>
-    <string name="title_activity_all_schedual">AllSchedual</string>
+    <string name="title_activity_all_schedual">All Schedules</string>
 </resources>
