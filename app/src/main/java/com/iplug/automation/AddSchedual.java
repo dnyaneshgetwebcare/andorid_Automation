@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,13 +24,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -63,29 +62,56 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
     @BindView(R.id.add_schedual)
     Button addSchedual;
     FirebaseAuth mAuth;
+    @BindView(R.id.seek_bar)
+    SeekBar seekBar;
+    @BindView(R.id.seek_val)
+    TextView seekVal;
+    @BindView(R.id.ll_dimmer)
+    LinearLayout llDimmer;
     //ArrayList<CheckBox> checkBoxes;
-    private int  mHour, mMinute;
-    String device_id,document_id,device_name,room_type;
-    String TAG="AddSchedual";
+    private int mHour, mMinute;
+    String device_id, document_id, device_name, room_type;
+    String TAG = "AddSchedual";
     Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedual);
         setTitle("Add Routines");
         ButterKnife.bind(this);
-        context=this;
+        context = this;
         weekAll.setOnCheckedChangeListener(this);
         //checkBoxes.add(weekSun);
         final Calendar c = Calendar.getInstance();
-        device_id=getIntent().getStringExtra("device_id");
-        device_name=getIntent().getStringExtra("device_name");
-        document_id=getIntent().getStringExtra("document_id");
-        room_type=getIntent().getStringExtra("room_type");
+        device_id = getIntent().getStringExtra("device_id");
+        device_name = getIntent().getStringExtra("device_name");
+        document_id = getIntent().getStringExtra("document_id");
+        room_type = getIntent().getStringExtra("room_type");
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         schTime.setText(String.format("%02d", mHour) + ":" + String.format("%02d", mMinute));
         deviceDetails.setText(device_name + " [" + room_type + "]");
+        llDimmer.setVisibility(View.GONE);
+      /*  if(room_type.equalsIgnoreCase("fan") || room_type.equalsIgnoreCase("")){
+            llDimmer.setVisibility(View.VISIBLE);
+        }*/
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekVal.setText(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @OnClick({R.id.sch_time, R.id.add_schedual})
@@ -115,7 +141,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                                 else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
                                     am_pm = "PM";*/
 
-                               // String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
+                                // String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
 
 
                                 schTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
@@ -124,123 +150,123 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                 timePickerDialog.show();
                 break;
             case R.id.add_schedual:
-                String check_duration=checksselection();
-                if(check_duration!=null){
-                    String dev_status="OFF";
-                    String time=schTime.getText().toString();
-                    if(deviceStatus.isChecked()){
-                         dev_status="ON";
+                String check_duration = checksselection();
+                if (check_duration != null) {
+                    String dev_status = "OFF";
+                    String time = schTime.getText().toString();
+                    if (deviceStatus.isChecked()) {
+                        dev_status = "ON";
                     }
 
-                    submit_data(dev_status+"-"+check_duration+"-"+time+";",dev_status,device_id,check_duration+"-"+time);
-                }else{
-                    Toast.makeText(AddSchedual.this,"Please select Duration",Toast.LENGTH_LONG);
+                    submit_data(dev_status + "-" + check_duration + "-" + time + ";", dev_status, device_id, check_duration + "-" + time);
+                } else {
+                    Toast.makeText(AddSchedual.this, "Please select Duration", Toast.LENGTH_LONG);
                 }
                 break;
         }
     }
 
-    private void submit_data(String check_duration,String deviceAction,String deviceId,String time) {
+    private void submit_data(String check_duration, String deviceAction, String deviceId, String time) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d(TAG, "User Signed In " + user.getEmail());
-       // Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
-        DocumentReference documentReference=db.collection("users").document(user.getEmail()).collection("devices").document(document_id);
-         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        // Toast.makeText(context, "User Signed In " + user.getEmail(), Toast.LENGTH_SHORT).show();
+        DocumentReference documentReference = db.collection("users").document(user.getEmail()).collection("devices").document(document_id);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Map<String,Object> fields=task.getResult().getData();
-                boolean addnew=true;
+                Map<String, Object> fields = task.getResult().getData();
+                boolean addnew = true;
                 for (Map.Entry<String, Object> entry : fields.entrySet()) {
-                    if(entry.getKey().equalsIgnoreCase("schedule")){
-                        addnew=false;
-                        updateSchedual(entry.getValue().toString()+check_duration,documentReference);
+                    if (entry.getKey().equalsIgnoreCase("schedule")) {
+                        addnew = false;
+                        updateSchedual(entry.getValue().toString() + check_duration, documentReference);
                         break;
                     }
                 }
-                if(addnew){
-                    updateSchedual(check_duration,documentReference);
+                if (addnew) {
+                    updateSchedual(check_duration, documentReference);
                 }
                 Toast.makeText(context, "Added Successfully", Toast.LENGTH_LONG).show();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",check_duration);
-                setResult(Activity.RESULT_OK,returnIntent);
+                returnIntent.putExtra("result", check_duration);
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
-         db.collection("schedules").document("add").update("deviceAction",deviceAction,
-                 "deviceId",deviceId,
-                 "time",time
-         );
+        db.collection("schedules").document("add").update("deviceAction", deviceAction,
+                "deviceId", deviceId,
+                "time", time
+        );
     }
 
 
+    public void updateSchedual(String schedual, DocumentReference documentReference) {
 
-    public void  updateSchedual(String schedual,DocumentReference documentReference){
-
-      documentReference.update(
-              "schedule",schedual
-      );
+        documentReference.update(
+                "schedule", schedual
+        );
     }
+
     private String checksselection() {
-        String duration_string=null;
-        if(weekAll.isChecked()){
+        String duration_string = null;
+        if (weekAll.isChecked()) {
 
             return "all";
         }
 
-        if(weekSun.isChecked()){
-            duration_string="sun";
+        if (weekSun.isChecked()) {
+            duration_string = "sun";
 
         }
-        if(weekWed.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",wed";
-            }else{
-                duration_string="wed";
+        if (weekWed.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",wed";
+            } else {
+                duration_string = "wed";
             }
 
         }
-        if(weekTue.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",tue";
-            }else{
-                duration_string="tue";
+        if (weekTue.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",tue";
+            } else {
+                duration_string = "tue";
             }
         }
-        if(weekThu.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",thu";
-            }else{
-                duration_string="thu";
+        if (weekThu.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",thu";
+            } else {
+                duration_string = "thu";
             }
         }
-        if(weekSat.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",sat";
-            }else{
-                duration_string="sat";
+        if (weekSat.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",sat";
+            } else {
+                duration_string = "sat";
             }
         }
-        if(weekFri.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",fri";
-            }else{
-                duration_string="fri";
+        if (weekFri.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",fri";
+            } else {
+                duration_string = "fri";
             }
         }
-        if(weekMon.isChecked()){
-            if(duration_string!=null){
-                duration_string=duration_string+",mon";
-            }else{
-                duration_string="mon";
+        if (weekMon.isChecked()) {
+            if (duration_string != null) {
+                duration_string = duration_string + ",mon";
+            } else {
+                duration_string = "mon";
             }
         }
         return duration_string;
     }
 
-    public void setAll(boolean isChecked){
+    public void setAll(boolean isChecked) {
         weekSun.setChecked(isChecked);
         weekFri.setChecked(isChecked);
         weekMon.setChecked(isChecked);
@@ -256,10 +282,11 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         weekThu.setEnabled(!isChecked);
         weekTue.setEnabled(!isChecked);
         weekWed.setEnabled(!isChecked);
-     }
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()){
+        switch (buttonView.getId()) {
             case R.id.week_all:
                 setAll(isChecked);
                 break;

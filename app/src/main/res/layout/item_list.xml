@@ -65,6 +65,22 @@
         android:src="@mipmap/scheduler_on_icon"
         android:text="Click"
         android:textSize="12sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll_brightness"
+        android:layout_height="wrap_content">
+    <SeekBar
+        android:layout_width="80dp"
+        android:max="100"
+        android:id="@+id/sb_brightness"
+        android:layout_height="wrap_content"></SeekBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="100%"
+            android:id="@+id/brightness_per"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/room_type"

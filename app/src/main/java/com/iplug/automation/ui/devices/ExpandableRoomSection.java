@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -77,6 +78,36 @@ final class ExpandableRoomSection extends Section {
         itemHolder.device_img.setImageResource(getDeviceType(deviceList.get(position).getName(),deviceList.get(position).getStatus()));
         itemHolder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
         //  holder.change_status.setText(deviceList.get(position).getStatus());
+        itemHolder.ll_brightness.setVisibility(View.GONE);
+        if(deviceList.get(position).getBrightness()==null || deviceList.get(position).getBrightness()==""){
+            deviceList.get(position).setBrightness("0");
+        }
+if(deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(position).getName().equalsIgnoreCase("light")){
+    itemHolder.ll_brightness.setVisibility(View.VISIBLE);
+    itemHolder.brightness_percent.setText(deviceList.get(position).getBrightness());
+   itemHolder.sb_brightness.setProgress(Integer.parseInt(deviceList.get(position).getBrightness()));
+    itemHolder.sb_brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            try {
+                changeBrightness(deviceList.get(position).getId(), progress);
+            }catch (Exception ex){
+                Log.w("Status",ex.getMessage());
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    });
+}
+
 
         if(deviceList.get(position).getStatus()==null || deviceList.get(position).getStatus().equalsIgnoreCase("")){
             getRealtimeListner(deviceList.get(position).getId(),position,itemHolder.getAdapterPosition());
@@ -206,6 +237,15 @@ final class ExpandableRoomSection extends Section {
             DatabaseReference myRef = database.getReference().getRoot().child(device_id).child("OnOff").child("on");
             boolean bool = Boolean.parseBoolean(status_val);
             myRef.setValue((!bool) + "");
+        }catch (Exception ex){
+            Log.w("Status",ex.getMessage());
+        }
+    }
+    public void changeBrightness(String device_id,int brightness){
+        try {
+            DatabaseReference myRef = database.getReference().getRoot().child(device_id).child("Brightness");
+
+            myRef.setValue(brightness);
         }catch (Exception ex){
             Log.w("Status",ex.getMessage());
         }
