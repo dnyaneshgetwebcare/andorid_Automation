@@ -115,13 +115,16 @@ public class CriticalDeviceAdapter extends RecyclerView.Adapter<CriticalDeviceAd
                 return "Door";
             case "light":
                 return "Light";
+            case "Dlight":
+                return "D Light";
             case "geyser":
                 return "Geyser";
             case "fan":
                 return "Fan";
             case "curtain":
                 return "Curtain";
-            default: return "";
+            default:
+                return "";
         }
 
     }

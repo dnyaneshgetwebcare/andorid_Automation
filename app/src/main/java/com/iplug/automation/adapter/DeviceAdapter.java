@@ -99,13 +99,16 @@ public String getname(String type){
                 return "Door";
             case "light":
                 return "Light";
+            case "Dlight":
+                return "D Light";
             case "geyser":
                 return "Geyser";
             case "fan":
                 return "Fan";
             case "curtain":
                 return "Curtain";
-                default: return "";
+            default:
+                return "";
         }
 
 }
@@ -134,6 +137,12 @@ public int getDeviceType(String type,String status){
         if(status!=null) {
             switch (type) {
                 case "light":
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.bulb_on;
+                    } else {
+                        return R.mipmap.bulb_off;
+                    }
+                case "Dlight":
                     if (status.equalsIgnoreCase("true")) {
                         return R.mipmap.bulb_on;
                     } else {

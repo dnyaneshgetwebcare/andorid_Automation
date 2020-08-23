@@ -20,7 +20,7 @@ public class UserProfileEntity implements Serializable {
     String contact_nos;
     @ColumnInfo(name="property_type")
     String property_type;
-    @ColumnInfo(name="property_vairent")
+    @ColumnInfo(name = "property_variant")
      String property_vairent;
 
     public String getProperty_type() {

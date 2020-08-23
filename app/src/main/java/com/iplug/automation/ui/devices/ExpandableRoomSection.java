@@ -79,20 +79,20 @@ final class ExpandableRoomSection extends Section {
         itemHolder.device_status.setImageResource(getDrawable(deviceList.get(position).getStatus()));
         //  holder.change_status.setText(deviceList.get(position).getStatus());
         itemHolder.ll_brightness.setVisibility(View.GONE);
-        if(deviceList.get(position).getBrightness()==null || deviceList.get(position).getBrightness()==""){
+        if (deviceList.get(position).getBrightness() == null || deviceList.get(position).getBrightness() == "") {
             deviceList.get(position).setBrightness("0");
         }
-if(deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(position).getName().equalsIgnoreCase("light")){
-    itemHolder.ll_brightness.setVisibility(View.VISIBLE);
-    itemHolder.brightness_percent.setText(deviceList.get(position).getBrightness());
-   itemHolder.sb_brightness.setProgress(Integer.parseInt(deviceList.get(position).getBrightness()));
-    itemHolder.sb_brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            try {
-                changeBrightness(deviceList.get(position).getId(), progress);
-            }catch (Exception ex){
-                Log.w("Status",ex.getMessage());
+        if (deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(position).getName().equalsIgnoreCase("Dlight")) {
+            itemHolder.ll_brightness.setVisibility(View.VISIBLE);
+            itemHolder.brightness_percent.setText(deviceList.get(position).getBrightness());
+            itemHolder.sb_brightness.setProgress(Integer.parseInt(deviceList.get(position).getBrightness()));
+            itemHolder.sb_brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    try {
+                        changeBrightness(deviceList.get(position).getId(), progress);
+                    } catch (Exception ex) {
+                        Log.w("Status", ex.getMessage());
             }
         }
 
@@ -199,7 +199,7 @@ if(deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(
 
     }
     public String getname(String type){
-        switch (type){
+        switch (type) {
             case "ac":
                 return "Air Conditioner";
             case "plug":
@@ -208,13 +208,16 @@ if(deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(
                 return "Door";
             case "light":
                 return "Light";
+            case "Dlight":
+                return "Light";
             case "geyser":
                 return "Geyser";
             case "fan":
                 return "Fan";
             case "curtain":
                 return "Curtain";
-            default: return "";
+            default:
+                return "";
         }
 
     }
@@ -254,6 +257,12 @@ if(deviceList.get(position).getName().equalsIgnoreCase("fan") || deviceList.get(
         if(status!=null) {
             switch (type) {
                 case "light":
+                    if (status.equalsIgnoreCase("true")) {
+                        return R.mipmap.bulb_on;
+                    } else {
+                        return R.mipmap.bulb_off;
+                    }
+                case "Dlight":
                     if (status.equalsIgnoreCase("true")) {
                         return R.mipmap.bulb_on;
                     } else {

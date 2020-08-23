@@ -22,26 +22,27 @@
     android:background="@color/off_white"
     android:layout_height="match_parent" >
 
-
-    <TextView
-        android:id="@+id/deveice_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Device name"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="12sp"/>
 <ImageView
     android:layout_width="match_parent"
     android:src="@mipmap/ac_off"
     android:id="@+id/img_vw"
     android:layout_margin="36dp"
-
     android:scaleType="fitCenter"
     android:layout_centerInParent="true"
     android:gravity="center_vertical"
     android:layout_height="match_parent"></ImageView>
 
+    <TextView
+        android:id="@+id/deveice_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="Device name"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/btn_change"
@@ -50,6 +51,7 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:padding="3dp"
         android:src="@mipmap/power_off"
         android:text="Click"
         android:textSize="12sp" />
@@ -58,27 +60,32 @@
         android:id="@+id/btn_schedual"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+
         android:background="@null"
         android:scaleType="fitCenter"
         android:src="@mipmap/scheduler_on_icon"
         android:text="Click"
         android:textSize="12sp" />
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:id="@+id/ll_brightness"
+        android:orientation="horizontal"
         android:layout_height="wrap_content">
-    <SeekBar
-        android:layout_width="80dp"
-        android:max="100"
-        android:id="@+id/sb_brightness"
-        android:layout_height="wrap_content"></SeekBar>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:max="100"
+            android:id="@+id/sb_brightness"
+            android:layout_height="match_parent"
+            android:layout_weight="2"></SeekBar>
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="100%"
+            android:layout_alignParentRight="true"
             android:id="@+id/brightness_per"
+            android:text=" 100% "
+            android:textColor="@color/on_status"
             android:layout_height="wrap_content"></TextView>
     </LinearLayout>
 
