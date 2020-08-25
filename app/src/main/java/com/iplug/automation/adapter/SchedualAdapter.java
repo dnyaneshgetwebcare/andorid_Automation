@@ -47,6 +47,15 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
         holder.time_tv.setText(schedualDetails.getTime());
         holder.duration_tv.setText(schedualDetails.getDuration());
         holder.status_tv.setText(schedualDetails.getStatus());
+        String device_type=schedualDetails.getDevice_type();
+        if(device_type.equalsIgnoreCase("fan") || device_type.equalsIgnoreCase("Dlight")){
+
+            if(!schedualDetails.getBrightness().equalsIgnoreCase("0")){
+                holder.sch_brght_val.setVisibility(View.VISIBLE);
+                holder.sch_bright.setVisibility(View.VISIBLE);
+                holder.sch_brght_val.setText(schedualDetails.getBrightness());
+            }
+        }
         holder.deletesch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,12 +80,13 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
         String deviceAction=schedualList.get(sch_pos).getStatus();
         String deviceId=schedualList.get(sch_pos).getDevice_id();
         String time=schedualList.get(sch_pos).getTime();
+        String bright=schedualList.get(sch_pos).getBrightness();
         schedualList.remove(sch_pos);
         notifyItemRemoved(sch_pos);
 
         notifyItemRangeChanged(sch_pos, schedualList.size());
 
-        deleteItem.deleteItem(deviceAction+"-"+check_duration+"-"+time+";",deviceAction,deviceId,check_duration+"-"+time,schedualList.size());
+        deleteItem.deleteItem(deviceAction+"-"+check_duration+"-"+time+"_"+bright+";",deviceAction,deviceId,check_duration+"-"+time,schedualList.size(),bright);
     }
 
     @Override
@@ -85,7 +95,7 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView duration_tv,time_tv,status_tv;
+        TextView duration_tv,time_tv,status_tv,sch_brght_val,sch_bright;
         ImageButton deletesch;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,9 +103,11 @@ public class SchedualAdapter extends RecyclerView.Adapter<SchedualAdapter.ViewHo
             this.status_tv=itemView.findViewById(R.id.sch_status);
             this.time_tv=itemView.findViewById(R.id.sch_time);
             this.deletesch=itemView.findViewById(R.id.delete_sch);
+            this.sch_brght_val=itemView.findViewById(R.id.sch_brght_val);
+            this.sch_bright=itemView.findViewById(R.id.sch_bright);
         }
     }
     public  interface DeleteItem{
-        void deleteItem(String check_duration,String deviceAction,String deviceId,String time,int list_size);
+        void deleteItem(String check_duration,String deviceAction,String deviceId,String time,int list_size,String bright);
     }
 }

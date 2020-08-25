@@ -51,7 +51,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
     RecyclerView rvScheduel;
     @BindView(R.id.empty_id)
     TextView emptyId;
-    String device_name,document_id,device_id,room_type;
+    String device_name,document_id,device_id,room_type,device_type;
     FirebaseAuth mAuth;
     String TAG = "";
   /*  @BindView(R.id.toolbar)
@@ -76,6 +76,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         device_id = getIntent().getStringExtra("device_id");
         device_name = getIntent().getStringExtra("device_name");
         room_type = getIntent().getStringExtra("room_type");
+        device_type = getIntent().getStringExtra("device_type");
         context=this;
         roomName.setText(room_type);
         // deviceName.setText(room_type+ "->"+ device_name);
@@ -125,11 +126,20 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                                                     if(schedule.length<2){
                                                         continue;
                                                     }
+                                                    schedualDetail.setBrightness("0");
+                                                    if(device_type.equalsIgnoreCase("fan") || device_type.equalsIgnoreCase("Dlight")){
+
+                                                        if(schedule.length==4){
+                                                            schedualDetail.setBrightness(schedule[3]);
+                                                        }
+                                                    }
+
                                                     schedualDetail.setStatus(schedule[0]);
                                                     schedualDetail.setDuration(schedule[1]);
                                                     schedualDetail.setTime(schedule[2]);
                                                     schedualDetail.setSch_pos(i);
                                                     schedualDetail.setDevice_id(device_name);
+                                                    schedualDetail.setDevice_type(device_type);
                                                     schedualDetails.add(schedualDetail);
                                                 }
                                                 if (schedualDetails.size() == 0) {
@@ -167,7 +177,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
         }
 
     }
-    private void submit_data(String check_duration,String deviceAction,String deviceId,String time) {
+    private void submit_data(String check_duration,String deviceAction,String deviceId,String time,String bright) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -194,7 +204,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
             }
         });
         db.collection("schedules").document("remove").update("deviceAction",deviceAction,
-                "deviceId",deviceId,
+                "deviceId",deviceId,"deviceBrightness",bright,
                 "time",time
         );
     }
@@ -219,9 +229,17 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
                    // for (int i = 0; i < schedule_array.length; i++) {
                         String[] schedule = schedule_array[0].split("-");
                         SchedualDetails schedualDetail = new SchedualDetails();
+                    schedualDetail.setBrightness("0");
+                    if(device_type.equalsIgnoreCase("fan") || device_type.equalsIgnoreCase("Dlight")){
+
+                        if(schedule.length==4){
+                            schedualDetail.setBrightness(schedule[3]);
+                        }
+                    }
                         schedualDetail.setStatus(schedule[0]);
                         schedualDetail.setDuration(schedule[1]);
                         schedualDetail.setTime(schedule[2]);
+                    schedualDetail.setDevice_type(device_type);
                         schedualDetail.setSch_pos(schedualDetails.size());
                         schedualDetail.setDevice_id(device_name);
                         schedualDetails.add(schedualDetail);
@@ -252,6 +270,7 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
             intent.putExtra("device_id", device_id);
             intent.putExtra("device_name", device_name);
             intent.putExtra("room_type", room_type);
+            intent.putExtra("device_type", device_type);
             startActivityForResult(intent, INTENT_RESULT);
         }else{
             Toast.makeText(context, " Sorry! Maximum 6 routines can be added for each device", Toast.LENGTH_SHORT).show();
@@ -259,8 +278,8 @@ public class ScheduleActivity extends AppCompatActivity implements SchedualAdapt
     }
 
     @Override
-    public void deleteItem(String check_duration, String deviceAction, String deviceId, String time,int list_size) {
-        submit_data(check_duration,deviceAction,deviceId,time);
+    public void deleteItem(String check_duration, String deviceAction, String deviceId, String time,int list_size,String bright) {
+        submit_data(check_duration,deviceAction,deviceId,time,bright);
         total_sch=list_size;
         if(list_size==0){
             rvScheduel.setVisibility(View.GONE);

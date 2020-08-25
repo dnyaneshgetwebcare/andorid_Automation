@@ -33,10 +33,28 @@ public class SchedualDetails {
         this.duration = duration;
     }
 
+    public String getDevice_type() {
+        return device_type;
+    }
+
+    public void setDevice_type(String device_type) {
+        this.device_type = device_type;
+    }
+
     String device_id;
     String time;
     String status;
     String duration;
+    String device_type;
+    public String getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(String brightness) {
+        this.brightness = brightness;
+    }
+
+    String brightness;
     int sch_pos;
 
     public int getSch_pos() {

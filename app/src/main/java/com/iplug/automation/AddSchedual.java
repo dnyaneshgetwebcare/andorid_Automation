@@ -70,10 +70,10 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
     LinearLayout llDimmer;
     //ArrayList<CheckBox> checkBoxes;
     private int mHour, mMinute;
-    String device_id, document_id, device_name, room_type;
+    String device_id, document_id, device_name, room_type,device_type;
     String TAG = "AddSchedual";
     Context context;
-
+    String dev_brightness="0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,18 +88,19 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         device_name = getIntent().getStringExtra("device_name");
         document_id = getIntent().getStringExtra("document_id");
         room_type = getIntent().getStringExtra("room_type");
+        device_type = getIntent().getStringExtra("device_type");
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         schTime.setText(String.format("%02d", mHour) + ":" + String.format("%02d", mMinute));
         deviceDetails.setText(device_name + " [" + room_type + "]");
         llDimmer.setVisibility(View.GONE);
-      /*  if(room_type.equalsIgnoreCase("fan") || room_type.equalsIgnoreCase("")){
+        if(device_type.equalsIgnoreCase("fan") || device_type.equalsIgnoreCase("Dlight")){
             llDimmer.setVisibility(View.VISIBLE);
-        }*/
+        }
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                seekVal.setText(progress);
+                seekVal.setText(progress+" %");
             }
 
             @Override
@@ -158,7 +159,13 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
                         dev_status = "ON";
                     }
 
-                    submit_data(dev_status + "-" + check_duration + "-" + time + ";", dev_status, device_id, check_duration + "-" + time);
+                    dev_brightness="0";
+                    String request_string=dev_status + "-" + check_duration + "-" + time+"-"+dev_brightness + ";";
+                    if(device_type.equalsIgnoreCase("fan") || device_type.equalsIgnoreCase("Dlight")){
+                        dev_brightness=seekBar.getProgress()+"";
+                        request_string=dev_status + "-" + check_duration + "-" + time+"-"+dev_brightness + ";";
+                    }
+                    submit_data(request_string, dev_status, device_id, check_duration + "-" + time,dev_brightness);
                 } else {
                     Toast.makeText(AddSchedual.this, "Please select Duration", Toast.LENGTH_LONG);
                 }
@@ -166,7 +173,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
         }
     }
 
-    private void submit_data(String check_duration, String deviceAction, String deviceId, String time) {
+    private void submit_data(String check_duration, String deviceAction, String deviceId, String time,String brightness) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -196,7 +203,7 @@ public class AddSchedual extends AppCompatActivity implements CompoundButton.OnC
             }
         });
         db.collection("schedules").document("add").update("deviceAction", deviceAction,
-                "deviceId", deviceId,
+                "deviceId", deviceId,"deviceBrightness",brightness,
                 "time", time
         );
     }
